@@ -13,7 +13,7 @@
 -----------------------------------------------------------------------------------------
 --
 -- NOTICE: This is a very early release, meant to look at and play around.
--- Lot's of documantation, approach, enhancements etc on the way!
+-- Lot's of documentation, approach, enhancements etc on the way!
 --
 -- USAGE:
 -- To run a script, run i.e. 'lua test.lua' in the folder, where you unpacked the
