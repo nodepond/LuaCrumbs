@@ -1,13 +1,25 @@
------------------------------------------------------------------------------
--- Particles.lua
+-----------------------------------------------------------------------------------------
+-- Particles.lua ALPHA
 -- Scripting-framework for generating C-Gode for CNC-machines.
 -- Jump straight into the fun!
 -- http://particles.nodepond.com
 --
 -- License: MIT/X
 -- 
--- (c) 2011 Nodepond / Martin Wisniowski (mw@node3000.com)
+-- (c) 2011 Nodepond / Martin Wisniowski (hello@nodepond.com)
 --
------------------------------------------------------------------------------
+-- Build with heavy support of the http://dingfabrik.de
+-- Inspired by Processing, Lua, Good Looking Records, LTJ Bukem and the Rings of Saturn 
+-----------------------------------------------------------------------------------------
+--
+-- NOTICE: This is a very early release, meant to look at and play around.
+-- Lot's of documantation, approach, enhancements etc on the way!
+--
+-- USAGE:
+-- To run a script, run i.e. 'lua test.lua' in the folder, where you unpacked the
+-- downloaded files. This will generate a gcode-file with .ngc and a 
+-- html5-preview with .ngc.html.
+--
+--
+-- 10.Okt 2011 Early Alpha Release V0.01
 
-This is just a stub to get the repository up. More content and code will follow.
