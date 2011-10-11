@@ -7,9 +7,9 @@ require("particles")
 particles.init("rnd.ngc")
 particles.generateHTML(true)
 
-for i=0, 100 do
+for i=0, 40 do
 	particles.line(math.random(20), math.random(20), math.random(40)+100, math.random(40))
-	particles.circleAt(math.random(100), math.random(100), math.random(100))
+	particles.circleAt(math.random(100), math.random(100), math.random(40))
 	--particles.circleAt(100, 50)
 end
 

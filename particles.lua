@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- Particles.lua
--- Scripting-libary for generating C-Gode for CNC-machines.
+-- Scripting-libary for generating G-Code for CNC-machines.
 -- Jump straight into the fun!
 -- http://particles.nodepond.com
 --
@@ -29,16 +29,6 @@ curz = 0
 -- additional canvas / html5 parameters
 html_zoom = 4
 
-function setSpeed(val)
-	if val == nil or val == 0 then
-		file:write("G0\n")
-		return
-	end
-	if val > 0 then
-		file:write("F"..val.."\n")
-	end
-end
-
 function standardInit(verbose)
 	-- this is the standard init
 	if verbose then
@@ -60,6 +50,16 @@ function standardInit(verbose)
 	end
 end
 
+function setSpeed(val)
+	if val == nil or val == 0 then
+		file:write("G0\n")
+		return
+	end
+	if val > 0 then
+		file:write("F"..val.."\n")
+	end
+end
+
 -- Move to absolute coordinate (every parameter is optional. If nil, the xyz value is unchanged)
 -- TODO: Please test this with only one or zero parameters with an g-code device
 function moveTo(xpos, ypos, zpos)
@@ -73,7 +73,6 @@ function moveTo(xpos, ypos, zpos)
 	if xpos ~= nil then curx = xpos end
 	if ypos ~= nil then cury = ypos end
 	if zpos ~= nil then curz = zpos end
-	
 end
 
 -- Draw circle, counterclockwise-parameter is optional

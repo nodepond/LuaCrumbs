@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 -- Particles.lua ALPHA
--- Scripting-framework for generating C-Gode for CNC-machines.
+-- Scripting-framework for generating G-Code for CNC-machines.
 -- Jump straight into the fun!
 -- http://particles.nodepond.com
 --
