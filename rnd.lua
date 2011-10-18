@@ -4,8 +4,9 @@
 
 require("particles")
 
-particles.init("rnd.ngc")
+particles.init("rnd")
 particles.generateHTML(true)
+-- particles.generateGCode(false) -- example to surpress GCode-output
 
 for i=0, 40 do
 	particles.line(math.random(20), math.random(20), math.random(40)+100, math.random(40))

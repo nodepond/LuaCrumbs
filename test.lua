@@ -3,7 +3,7 @@
 
 require("particles")
 
-particles.init("test.ngc", true)
+particles.init("test", true)
 
 -- jump straight into the fun!
 particles.line(0, 0, 100, 100)
