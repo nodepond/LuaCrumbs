@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>test.html - made with Particles G-Code Generator</title>
+</head>
+<body>
+<canvas id="c" width="600" height="600"></canvas>
+<script>
+var c = document.getElementById("c");
+var context = c.getContext("2d");
+context.strokeStyle = "#666";
+context.lineWidth = 2;
+context.moveTo(0, 0);
+context.moveTo(400, 400);
+context.moveTo(0, 0);
+context.lineTo(400, 400);
+context.stroke();
+context.moveTo(0, 400);
+context.moveTo(400, 0);
+context.moveTo(0, 400);
+context.lineTo(400, 0);
+context.stroke();
+context.moveTo(200, 152);
+context.beginPath();
+context.arc(200, 200, 48, 0, Math.PI * 2, false);
+context.closePath();
+context.strokeStyle = "#666";
+context.lineWidth = 2;
+context.stroke();
+context.strokeStyle = "#666";
+context.lineWidth = 2;
+context.moveTo(200, 152);
+context.beginPath();
+context.arc(200, 200, 48, 0, Math.PI * 2, false);
+context.closePath();
+context.strokeStyle = "#999";
+context.lineWidth = 4;
+context.stroke();
+context.strokeStyle = "#666";
+context.lineWidth = 2;
+context.moveTo(200, 168);
+context.beginPath();
+context.arc(200, 200, 32, 0, Math.PI * 2, false);
+context.closePath();
+context.strokeStyle = "#999";
+context.lineWidth = 4;
+context.stroke();
+context.strokeStyle = "#666";
+context.lineWidth = 2;
+context.moveTo(80, 80);
+context.lineTo(320, 80);
+context.stroke();
+context.moveTo(320, 80);
+context.lineTo(320, 320);
+context.stroke();
+context.moveTo(320, 320);
+context.lineTo(80, 320);
+context.stroke();
+context.moveTo(80, 320);
+context.lineTo(80, 80);
+context.stroke();
+context.moveTo(80, 80);
+context.moveTo(0, -200);
+context.beginPath();
+context.arc(0, 0, 200, 0, Math.PI * 2, false);
+context.closePath();
+context.strokeStyle = "#999";
+context.lineWidth = 4;
+context.stroke();
+context.strokeStyle = "#666";
+context.lineWidth = 2;
+context.moveTo(0, -40);
+context.beginPath();
+context.arc(0, 0, 40, 0, Math.PI * 2, false);
+context.closePath();
+context.strokeStyle = "#999";
+context.lineWidth = 4;
+context.stroke();
+context.strokeStyle = "#666";
+context.lineWidth = 2;
+</script>
+</body>
+</html>

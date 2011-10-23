@@ -1,0 +1,47 @@
+G40 (disable tool radius compensation)
+G49 (disable_tool_length_compensation)
+G80 (cancel_modal_motion)
+G54 (select_coordinate_system_1)
+G90 (Absolute distance mode)
+G21 (metric)
+G61 (exact path mode)
+F1200
+G1 z30
+G1 x0 y0
+G1 z0
+G1 x100 y100
+G1 z30
+G1 x0 y100
+G1 z0
+G1 x100 y0
+G1 z30
+G1 x50 y38
+G1 z0
+G2 J12
+G1 z30
+G1 x50 y38
+G1 z-5
+G3 J12
+G1 z30
+G1 x50 y42
+G1 z-10
+G3 J8
+G1 z30
+G1 x20 y20
+G1 z-10
+G1 x80 y20
+G1 z-10
+G1 x80 y80
+G1 z-10
+G1 x20 y80
+G1 z-10
+G1 x20 y20
+G1 z30
+G1 x0 y-50
+G1 z-10
+G3 J50
+G1 z30
+G1 x0 y-10
+G1 z-10
+G3 J10
+M2
