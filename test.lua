@@ -15,6 +15,15 @@ particles.circleAt(50, 50, 12, true)
 particles.setPencilDownPosition(-10)
 particles.circleAt(50, 50, 8, true)
 
+-- lineTo-example
+particles.pencilUp()
+particles.moveTo(20, 20)
+particles.lineTo(80, 20)
+particles.lineTo(80, 80)
+particles.lineTo(20, 80)
+particles.lineTo(20, 20)
+
+-- just some more circles around the origin
 particles.circleAt(0, 0, 50, true)
 particles.circleAt(0, 0, 10, true)
 

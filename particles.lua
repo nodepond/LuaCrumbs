@@ -82,6 +82,12 @@ function moveTo(xpos, ypos, zpos)
 	if xpos ~= nil then curx = xpos end
 	if ypos ~= nil then cury = ypos end
 	if zpos ~= nil then curz = zpos end
+	
+	if particles_generate_html and zpos == nil and xpos ~= nil and ypos ~= nil then
+		-- we currently only support "2d-drawing"
+		particles_html = particles_html.."context.moveTo(".. xpos*html_zoom ..", ".. ypos*html_zoom ..");\n"
+		--particles_html = particles_html.."context.stroke();\n"
+	end
 end
 
 -- Draw circle, counterclockwise-parameter is optional
@@ -250,14 +256,16 @@ end
 
 -- draw line: straight from recent position. If pencil is not down, it will go down.
 function lineTo(xpos, ypos)
-	pencilDown() -- if down, nothing should happen
-	moveTo(xpos, ypos)
-	
+	-- important: generate html first, otherwise "moveTo" will set "head" to current position. 
+	-- result will be a context.lineTo with zero pixel length
 	if particles_generate_html then
 		-- we currently only support "2d-drawing"
 		particles_html = particles_html.."context.lineTo(".. xpos*html_zoom ..", ".. ypos*html_zoom ..");\n"
 		particles_html = particles_html.."context.stroke();\n"
 	end
+	
+	pencilDown() -- if down, nothing should happen
+	moveTo(xpos, ypos)
 end
 
 -- counterclockwise is optional
