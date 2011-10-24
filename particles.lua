@@ -239,7 +239,14 @@ end
 -- This is a little ugly dependency, also that there is an 'if particles_generate_html then'-statement at this place. 
 -- This kind of statements should be only in the Core!!
 
--- draw line: mode to up, go to start pos, move down, draw line to dest
+--- Draws a line from start position to end position. 
+-- Before drawing to head is always moved up to up-position (z-axis).
+-- When drawing stats, the head is put down to down-position, then the line s drawn.
+-- If pencil is not down, it will go down.
+-- @param xstart x-start-position in absolute coordinates
+-- @param ystart y-start-position in absolute coordinates
+-- @param xpos x-destination in absolute coordinates
+-- @param ypos y-destination in absolute coordinates
 function line(xstart, ystart, xdest, ydest)
 	pencilUp()
 	moveTo(xstart, ystart)
@@ -254,7 +261,10 @@ function line(xstart, ystart, xdest, ydest)
 	end
 end
 
--- draw line: straight from recent position. If pencil is not down, it will go down.
+--- Draw a line straight from recent position. 
+-- If pencil is not down, it will go down.
+-- @param xpos x-destination in absolute coordinates
+-- @param ypos y-destination in absolute coordinates
 function lineTo(xpos, ypos)
 	-- important: generate html first, otherwise "moveTo" will set "head" to current position. 
 	-- result will be a context.lineTo with zero pixel length
