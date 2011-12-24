@@ -18,12 +18,17 @@ module(..., package.seeall)
 -- define some variables for config and control
 particles_circlemode = 0 -- particles_circlemode: 0 = corner, 1 = radius
 
+particles_projectname = ""
+
 particles_generate_gcode = true -- generate html output file?
 particles_gcode = "" -- the content, that is added to the html-file
 
 particles_generate_html = true -- generate html output file?
 particles_html = "" -- the content, that is added to the html-file
-particles_projectname = ""
+
+particles_generate_svg = false -- generate svg output file?
+particles_svg = "" -- the content, that is added to the svg-file
+
 
 -- keep track of the current positions (we need this in some occations)
 curx = 0
@@ -31,7 +36,7 @@ cury = 0
 curz = 0
 
 -- additional canvas / html5 parameters
-html_zoom = 4
+html_zoom = 1
 
 function standardInit(verbose)
 	-- this is the standard init
@@ -88,6 +93,7 @@ function moveTo(xpos, ypos, zpos)
 		particles_html = particles_html.."context.moveTo(".. xpos*html_zoom ..", ".. ypos*html_zoom ..");\n"
 		--particles_html = particles_html.."context.stroke();\n"
 	end
+	
 end
 
 -- Draw circle, counterclockwise-parameter is optional
@@ -111,9 +117,13 @@ function circle(radius, counterclockwise)
 		end
 		particles_html = particles_html.."context.stroke();\n"
 		particles_html = particles_html.."context.strokeStyle = \"#666\";\n" -- in any case, back to default
-		particles_html = particles_html.."context.lineWidth = 2;\n"
-		
+		particles_html = particles_html.."context.lineWidth = 2;\n"		
 	end
+	
+	if particles_generate_svg then
+		particles_svg = particles_svg.."<circle cx=\""..curx.."\" cy=\""..(cury+(radius)).."\" r=\""..radius.."\" stroke=\"black\" fill=\"rgb(255,255,255)\" fill-opacity=\"0.0\" stroke-width=\"1px\"/>\n"
+	end
+	
 end
 
 function pause(seconds)
@@ -144,34 +154,41 @@ function insertIntoGCodeFile(string)
 end
 
 -- Should Particles generate an additional html5-file, that visualises the content?
+
+
+--- Generate a html-5 preview file? 
 -- The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code
 -- @params flag: true or false
-function generateHTML(flag)
+-- @params zoom_factor: (optional) scale the output with this zoom-factor. Default: 1
+function generateHTML(flag, zoom_factor)
 	particles_generate_html = flag
+	if (zoom_factor ~= nil) then
+		html_zoom = zoom_factor	
+	end
 end
 
 function doGenerateHTML()
-		print("\nStarting to write html-file.")
-		output_file = particles_projectname..".html"
-		file = io.open(output_file, "w+")
-		print("Opened file: "..output_file)	
+	print("\nStarting to write html-file.")
+	output_file = particles_projectname..".html"
+	file = io.open(output_file, "w+")
+	print("Opened file: "..output_file)	
 		
-		file:write("<html>\n")
-		file:write("<head>\n")
-		file:write("<title>"..output_file.." - made with Particles G-Code Generator</title>\n")
-		file:write("</head>\n")
-		file:write("<body>\n")
-		file:write("<canvas id=\"c\" width=\"600\" height=\"600\"></canvas>\n")
-		file:write("<script>\n")
-		file:write("var c = document.getElementById(\"c\");\n")
-		file:write("var context = c.getContext(\"2d\");\n")
-		file:write("context.strokeStyle = \"#666\";\n")
-		file:write("context.lineWidth = 2;\n")		
-		file:write(particles_html)
-		file:write("</script>\n")
-		file:write("</body>\n")
-		file:write("</html>\n")
-		print("Writing of "..output_file.." complete.\n")	
+	file:write("<html>\n")
+	file:write("<head>\n")
+	file:write("<title>"..output_file.." - made with Particles G-Code Generator</title>\n")
+	file:write("</head>\n")
+	file:write("<body>\n")
+	file:write("<canvas id=\"c\" width=\""..400*html_zoom.."\" height=\""..400*html_zoom.."\"></canvas>\n")
+	file:write("<script>\n")
+	file:write("var c = document.getElementById(\"c\");\n")
+	file:write("var context = c.getContext(\"2d\");\n")
+	file:write("context.strokeStyle = \"#666\";\n")
+	file:write("context.lineWidth = 2;\n")		
+	file:write(particles_html)
+	file:write("</script>\n")
+	file:write("</body>\n")
+	file:write("</html>\n")
+	print("Writing of "..output_file.." complete.\n")	
 end
 
 -- Should Particles generate a ngc-file (G-Code). The default is yes, since it is intended to use Particles with G-Code!
@@ -181,13 +198,40 @@ function generateGCode(flag)
 end
 
 function doGenerateGCode()
-		print("\nStarting to write GCode-file.")
-		output_file = particles_projectname..".ngc"
-		file = io.open(output_file, "w+")
-		print("Opened file: "..output_file)			
-		file:write(particles_gcode)
-		file:close()
-		print("Writing of "..output_file.." complete.\n")	
+	print("\nStarting to write GCode-file.")
+	output_file = particles_projectname..".ngc"
+	file = io.open(output_file, "w+")
+	print("Opened file: "..output_file)			
+	file:write(particles_gcode)
+	file:close()
+	print("Writing of "..output_file.." complete.\n")	
+end
+
+-- Should Particles generate a svg-file. The default is no.
+-- @params flag: true or false
+function generateSVG(flag)
+	particles_generate_svg = flag
+end
+
+function doGenerateSVG()
+	print("\nStarting to write SVG-file.")
+	output_file = particles_projectname..".svg"
+	file = io.open(output_file, "w+")
+	print("Opened file: "..output_file)
+	--<svg width="100%" height="100%">
+	-- <g transform="translate(50,50)">
+	--    <rect x="0" y="0" width="150" height="50" style="fill:red;" />
+	--  </g>
+	--</svg>
+	file:write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+	file:write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 20001102//EN\" \"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd\">\n")
+	file:write("<svg width=\"100%\" height=\"100%\">\n")
+	file:write("<g transform=\"translate(0,0)\">\n")
+	file:write(particles_svg)	
+	file:write("</g>\n")
+	file:write("</svg>")
+	file:close()
+	print("Writing of "..output_file.." complete.\n")	
 end
 
 
@@ -199,6 +243,10 @@ function close()
 		
 	if particles_generate_html then
 		doGenerateHTML()
+	end
+	
+	if particles_generate_svg then
+		doGenerateSVG()
 	end
 end
 -- Core (Really most basic functions) END
@@ -259,6 +307,11 @@ function line(xstart, ystart, xdest, ydest)
 		particles_html = particles_html.."context.lineTo(".. xdest*html_zoom ..", ".. ydest*html_zoom ..");\n"
 		particles_html = particles_html.."context.stroke();\n"
 	end
+	
+	if particles_generate_svg then
+		-- we currently only support "2d-drawing"
+		particles_svg = particles_svg.."<line x1=\""..xstart.."\" y1=\""..ystart.."\" x2=\""..xdest.."\" y2=\""..ydest.."\" stroke=\"black\" stroke-width=\"1px\"/>\n"
+	end
 end
 
 --- Draw a line straight from recent position. 
@@ -272,6 +325,11 @@ function lineTo(xpos, ypos)
 		-- we currently only support "2d-drawing"
 		particles_html = particles_html.."context.lineTo(".. xpos*html_zoom ..", ".. ypos*html_zoom ..");\n"
 		particles_html = particles_html.."context.stroke();\n"
+	end
+	
+	if particles_generate_svg then
+		-- we currently only support "2d-drawing"
+		particles_svg = particles_svg.."<line x1=\""..curx.."\" y1=\""..cury.."\" x2=\""..xpos.."\" y2=\""..ypos.."\" stroke=\"black\" stroke-width=\"1px\"/>\n"
 	end
 	
 	pencilDown() -- if down, nothing should happen

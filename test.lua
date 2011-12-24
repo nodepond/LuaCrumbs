@@ -5,6 +5,8 @@ require("particles")
 
 particles.init("test", true)
 
+particles.generateSVG(true)
+
 -- jump straight into the fun!
 particles.line(0, 0, 100, 100)
 particles.line(0, 100, 100, 0)

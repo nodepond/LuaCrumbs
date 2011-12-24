@@ -5,8 +5,9 @@
 require("particles")
 
 particles.init("rnd")
-particles.generateHTML(true)
+particles.generateHTML(true, 10)
 -- particles.generateGCode(false) -- example to surpress GCode-output
+particles.generateSVG(true)
 
 for i=0, 40 do
 	particles.line(math.random(20), math.random(20), math.random(40)+100, math.random(40))
