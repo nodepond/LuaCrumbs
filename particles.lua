@@ -35,6 +35,9 @@ curx = 0
 cury = 0
 curz = 0
 
+-- store a rotation-value for cases, i.e. if multiple rotations are added
+rotation = 0
+
 -- additional canvas / html5 parameters
 html_zoom = 1
 
@@ -106,7 +109,7 @@ function circle(radius, counterclockwise)
 	
 	if particles_generate_html then
 		particles_html = particles_html.."context.beginPath();\n"
-		particles_html = particles_html.."context.arc("..(curx)*html_zoom..", "..(cury+radius)*html_zoom..", "..(radius)*html_zoom..", 0, Math.PI * 2, false);\n"
+		particles_html = particles_html.."context.arc("..(curx)*html_zoom..", "..(cury+radius)*html_zoom..", "..(radius)*html_zoom..", 0, PI * 2, false);\n"
 		particles_html = particles_html.."context.closePath();\n"
 		if counterclockwise then 
 			particles_html = particles_html.."context.strokeStyle = \"#999\";\n"
@@ -347,3 +350,46 @@ function circleAt(xpos, ypos, radius, counterclockwise)
 	pencilDown()
 	circle(radius, counterclockwise)
 end
+
+
+-- Turtle Core (applying "LOGO-like" drawing, with rotating the "cursor" and "moving forwards and backwards")
+
+--- Add a rotation to the current rotation-position 
+-- @param degrees Degrees to add. Value can be negative as well.
+function addRotation(degrees)
+	rotation = rotation + degrees
+end
+
+--- Sets the rotation directly to the specified value 
+-- @param degrees Degrees to set. Value should be between -360 and 360.
+function setRotation(degrees)
+	rotation = degrees
+end
+
+--- Moves the "cursor" forward with the current-rotation angle be the specified value  
+-- @param steps Length of the step to move forward
+function moveForward(steps)
+	-- this seems to be much easier: http://stackoverflow.com/questions/1055062/how-to-calculate-a-point-on-a-rotated-axis
+	
+	local newposx = math.cos(math.rad(rotation-90)) * steps
+	local newposy = math.sin(math.rad(rotation-90)) * steps
+	
+	print("curx "..curx.." cury "..cury)
+	print("newposx "..newposx.." newposy "..newposy)
+	
+	lineTo(curx + newposx, cury + newposy)
+	-- for rotation math, refer: http://stackoverflow.com/questions/786472/rotate-a-point-by-an-angle
+	--px = 0
+	--py = -1*steps
+	--newposx = (math.cos(math.rad(rotation)) * (px-curx)) - (math.sin(math.rad(rotation)) * (py-cury)) + curx
+	--newposy = (math.sin(math.rad(rotation)) * (px-curx)) + (math.cos(math.rad(rotation)) * (py-cury)) + cury
+	--p'x = cos(theta) * (px-ox) - sin(theta) * (py-oy) + ox
+	--p'y = sin(theta) * (px-ox) + cos(theta) * (py-oy) + oy
+end
+
+--- Same as moveForward, but in the other direction
+-- @param steps Length of the step to move backwards
+function moveBackward(steps)
+	
+end
+
