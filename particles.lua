@@ -178,7 +178,7 @@ function doGenerateHTML()
 		
 	file:write("<html>\n")
 	file:write("<head>\n")
-	file:write("<title>"..output_file.." - made with Particles G-Code Generator</title>\n")
+	file:write("<title>"..output_file.." - Made with Particles G-Code Generator</title>\n")
 	file:write("</head>\n")
 	file:write("<body>\n")
 	file:write("<canvas id=\"c\" width=\""..400*html_zoom.."\" height=\""..400*html_zoom.."\"></canvas>\n")
@@ -186,7 +186,7 @@ function doGenerateHTML()
 	file:write("var c = document.getElementById(\"c\");\n")
 	file:write("var context = c.getContext(\"2d\");\n")
 	file:write("context.strokeStyle = \"#666\";\n")
-	file:write("context.lineWidth = 2;\n")		
+	file:write("context.lineWidth = 1;\n")		
 	file:write(particles_html)
 	file:write("</script>\n")
 	file:write("</body>\n")
@@ -368,6 +368,12 @@ end
 -- @param degrees Degrees to set. Value should be between -360 and 360.
 function setRotation(degrees)
 	rotation = degrees
+end
+
+--- Get the rotation parameter 
+-- Retruns the recent rotation-value
+function getRotation()
+	return rotation
 end
 
 --- Moves the "cursor" forward with the current-rotation angle be the specified value  
