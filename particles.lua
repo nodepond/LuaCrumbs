@@ -287,11 +287,7 @@ function pencilDown()
 end
 
 function isPencilDown()
-	if zpos == particles_pencildownpos then
-		return true
-	else
-		return false
-	end	
+	return curz == particles_pencildownpos
 end
 
 -- NOTICE: line and lineTo are still problematic, because tey take move-to into account, but are not always "drawn". 
@@ -387,12 +383,11 @@ function moveForward(steps)
 	--print("newposx "..newposx.." newposy "..newposy)
 	
 	-- check if pencil is down and decide the drawing-code
-	if isPencilDown then
+	if isPencilDown() then
 		lineTo(curx + newposx, cury + newposy)
 	else
-		lineTo(curx + newposx, cury + newposy)
+		moveTo(curx + newposx, cury + newposy)
 	end
-	
 end
 
 --- Same as moveForward, but in the other direction
