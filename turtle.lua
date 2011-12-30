@@ -4,41 +4,24 @@
 require("particles")
 
 particles.init("turtle")
-particles.generateGCode(true)
+particles.generateGCode(false)
 particles.generateHTML(true)
-particles.generateSVG(true)
-
-particles.moveTo(20, 20)
-particles.lineTo(25, 25)
+particles.generateSVG(false)
 
 particles.setRotation(0)
 
---particles.moveForward(5)
-
 particles.setPencilUpPosition(30)
 
-particles.pencilUp()
-if particles.isPencilDown() then
-	print("pencil is down")
-else
-	print("pencil is up")
-end
-
-particles.pencilDown()
-if particles.isPencilDown() then
-	print("pencil is down")
-else
-	print("pencil is up")
-end
-
-for i=0, 20 do
-	--particles.pencilUp()
-	particles.moveTo(100, 150)
-	particles.moveForward(150)
-	particles.addRotation(5)
+for i=0, 6 do
+	particles.moveTo(220, 150)
 	particles.pencilDown()
-	particles.moveForward(150)
-	particles.addRotation(5)	
+	for j=0, 120 do
+		particles.moveForward(3+i)
+		particles.addRotation(j-(120/2))
+	end
+--	particles.pencilUp()
+--	particles.moveForward(150)
+	particles.addRotation(45)	
 end
 
 particles.close()
