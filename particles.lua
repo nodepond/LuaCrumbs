@@ -371,20 +371,14 @@ end
 function moveForward(steps)
 	-- this seems to be much easier: http://stackoverflow.com/questions/1055062/how-to-calculate-a-point-on-a-rotated-axis
 	
+	-- subtract -90 degrees, in order to have the 0-rotation angle "point to up" 
 	local newposx = math.cos(math.rad(rotation-90)) * steps
 	local newposy = math.sin(math.rad(rotation-90)) * steps
 	
-	print("curx "..curx.." cury "..cury)
-	print("newposx "..newposx.." newposy "..newposy)
+	--print("curx "..curx.." cury "..cury)
+	--print("newposx "..newposx.." newposy "..newposy)
 	
 	lineTo(curx + newposx, cury + newposy)
-	-- for rotation math, refer: http://stackoverflow.com/questions/786472/rotate-a-point-by-an-angle
-	--px = 0
-	--py = -1*steps
-	--newposx = (math.cos(math.rad(rotation)) * (px-curx)) - (math.sin(math.rad(rotation)) * (py-cury)) + curx
-	--newposy = (math.sin(math.rad(rotation)) * (px-curx)) + (math.cos(math.rad(rotation)) * (py-cury)) + cury
-	--p'x = cos(theta) * (px-ox) - sin(theta) * (py-oy) + ox
-	--p'y = sin(theta) * (px-ox) + cos(theta) * (py-oy) + oy
 end
 
 --- Same as moveForward, but in the other direction
