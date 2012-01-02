@@ -31,16 +31,20 @@ particles_svg = "" -- the content, that is added to the svg-file
 
 
 -- keep track of the current positions (we need this in some occations)
-curx = 0
-cury = 0
-curz = 0
+local curx = 0
+local cury = 0
+local curz = 0
+
+-- keep track of the x- and y maximum (needed .i.e. html-cavas-size)
+local outerx = 0
+local outery = 0
 
 -- store a rotation-value for cases, i.e. if multiple rotations are added
-rotation = 0
+local rotation = 0
 
 -- additional canvas / html5 parameters
-html_zoom = 1
-html_linewidth = 1
+local html_zoom = 1
+local html_linewidth = 1
 
 function standardInit(verbose)
 	-- this is the standard init
@@ -91,6 +95,13 @@ function moveTo(xpos, ypos, zpos)
 	if xpos ~= nil then curx = xpos end
 	if ypos ~= nil then cury = ypos end
 	if zpos ~= nil then curz = zpos end
+	
+	if curx > outerx then
+		outerx = curx
+	end
+	if cury > outery then
+		outery = cury
+	end
 	
 	if particles_generate_html and zpos == nil and xpos ~= nil and ypos ~= nil then
 		-- we currently only support "2d-drawing"
@@ -150,6 +161,9 @@ function init(projectname, verbose)
 	
 	standardInit(verbose)
 	setSpeed(1200)
+	
+	outerx = 0
+	outery = 0
 end
 
 -- universal function to write something into the gcode file, i.e. custom commands like "M101"
@@ -182,7 +196,7 @@ function doGenerateHTML()
 	file:write("<title>"..output_file.." - Made with Particles G-Code Generator</title>\n")
 	file:write("</head>\n")
 	file:write("<body>\n")
-	file:write("<canvas id=\"c\" width=\""..400*html_zoom.."\" height=\""..400*html_zoom.."\"></canvas>\n")
+	file:write("<canvas id=\"c\" width=\""..(outerx+html_linewidth+1)*html_zoom.."\" height=\""..(outery+html_linewidth+1)*html_zoom.."\"></canvas>\n")
 	file:write("<script>\n")
 	file:write("var c = document.getElementById(\"c\");\n")
 	file:write("var context = c.getContext(\"2d\");\n")
