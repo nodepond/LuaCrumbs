@@ -40,6 +40,7 @@ rotation = 0
 
 -- additional canvas / html5 parameters
 html_zoom = 1
+html_linewidth = 1
 
 function standardInit(verbose)
 	-- this is the standard init
@@ -156,17 +157,17 @@ function insertIntoGCodeFile(string)
 	particles_gcode = particles_gcode..string.."\n"
 end
 
--- Should Particles generate an additional html5-file, that visualises the content?
-
-
---- Generate a html-5 preview file? 
--- The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code
+--- Generates a html-5 preview file.
+-- The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code.
 -- @params flag: true or false
 -- @params zoom_factor: (optional) scale the output with this zoom-factor. Default: 1
-function generateHTML(flag, zoom_factor)
+function generateHTML(flag, zoom_factor, line_width)
 	particles_generate_html = flag
 	if (zoom_factor ~= nil) then
 		html_zoom = zoom_factor	
+	end
+	if (line_width ~= nil) then
+		html_linewidth = line_width	
 	end
 end
 
@@ -186,7 +187,7 @@ function doGenerateHTML()
 	file:write("var c = document.getElementById(\"c\");\n")
 	file:write("var context = c.getContext(\"2d\");\n")
 	file:write("context.strokeStyle = \"#666\";\n")
-	file:write("context.lineWidth = 1;\n")		
+	file:write("context.lineWidth = "..html_linewidth..";\n")		
 	file:write(particles_html)
 	file:write("</script>\n")
 	file:write("</body>\n")
@@ -194,7 +195,7 @@ function doGenerateHTML()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
--- Should Particles generate a ngc-file (G-Code). The default is yes, since it is intended to use Particles with G-Code!
+--- Should Particles generate a ngc-file (G-Code). The default is yes, since it is intended to use Particles with G-Code!
 -- @params flag: true or false
 function generateGCode(flag)
 	particles_generate_gcode = flag
@@ -210,7 +211,7 @@ function doGenerateGCode()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
--- Should Particles generate a svg-file. The default is no.
+--- Should Particles generate a svg-file. The default is no.
 -- @params flag: true or false
 function generateSVG(flag)
 	particles_generate_svg = flag
