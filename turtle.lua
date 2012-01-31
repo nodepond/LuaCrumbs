@@ -15,13 +15,22 @@ particles.setPencilUpPosition(30)
 for i=0, 6 do
 	particles.moveTo(220, 150)
 	particles.pencilDown()
-	for j=0, 120 do
+	for j=0, 240 do
 		particles.moveForward(3+i)
 		particles.addRotation(j-(120/2))
 	end
---	particles.pencilUp()
---	particles.moveForward(150)
-	particles.addRotation(45)	
+	particles.addRotation(35)	
 end
+
+function drawCircle(x, y, step, rot)
+	particles.moveTo(x, y)
+	for i=0, 120 do
+		particles.moveForward(step)
+		particles.addRotation(rot+i)
+	end
+end
+
+drawCircle(150, 150, 5, 0.1)
+drawCircle(150, 150, 15, 0.1)
 
 particles.close()
