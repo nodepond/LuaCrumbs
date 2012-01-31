@@ -121,7 +121,7 @@ function circle(radius, counterclockwise)
 	
 	if particles_generate_html then
 		particles_html = particles_html.."context.beginPath();\n"
-		particles_html = particles_html.."context.arc("..(curx)*html_zoom..", "..(cury+radius)*html_zoom..", "..(radius)*html_zoom..", 0, PI * 2, false);\n"
+		particles_html = particles_html.."context.arc("..(curx)*html_zoom..", "..(cury+radius)*html_zoom..", "..(radius)*html_zoom..", 0, Math.PI * 2, false);\n"
 		particles_html = particles_html.."context.closePath();\n"
 		if counterclockwise then 
 			particles_html = particles_html.."context.strokeStyle = \"#999\";\n"
