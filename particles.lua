@@ -117,9 +117,9 @@ function moveTo(xpos, ypos, zpos)
 	
 	if particles_generate_hpgl and zpos == nil and xpos ~= nil and ypos ~= nil then
 		if isPencilDown then
-			particles_hpgl = particles_hpgl.."PU"..-xpos*10..","..ypos*10..";"
+			particles_hpgl = particles_hpgl.."PU"..(-xpos*10)..","..(ypos*10)..";"
 		else
-			particles_hpgl = particles_hpgl.."PD"..-xpos*10..","..ypos*10..";"
+			particles_hpgl = particles_hpgl.."PD"..(-xpos*10)..","..(ypos*10)..";"
 		end		
 	end
 	
