@@ -29,6 +29,8 @@ particles_html = "" -- the content, that is added to the html-file
 particles_generate_svg = false -- generate svg output file?
 particles_svg = "" -- the content, that is added to the svg-file
 
+particles_generate_hpgl = false -- generate hpgl output file?
+particles_hpgl = "" -- the content, that is added to the hpgl-content
 
 -- keep track of the current positions (we need this in some occations)
 local curx = 0
@@ -69,6 +71,10 @@ function standardInit(verbose)
 			particles_gcode = particles_gcode.."G21\n"
 			particles_gcode = particles_gcode.."G61\n"
 		end
+	end
+	
+	if particles_generate_hpgl then
+		particles_hpgl = "IN;SP1;PU0,0;"
 	end
 end
 
@@ -252,6 +258,22 @@ function doGenerateSVG()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
+--- Should Particles generate a hpgl-file (HPGL). The default is no.
+-- @params flag: true or false
+function generateHPGL(flag)
+	particles_generate_hpgl = flag
+end
+
+function doGenerateHPGL()
+	print("\nStarting to write HPGL-file.")
+	output_file = particles_projectname..".hpgl"
+	file = io.open(output_file, "w+")
+	print("Opened file: "..output_file)	
+	particles_hpgl = particles_hpgl .. "E"		
+	file:write(particles_hpgl)
+	file:close()
+	print("Writing of "..output_file.." complete.\n")	
+end
 
 function close()	
 	if particles_generate_gcode then		
@@ -265,6 +287,10 @@ function close()
 	
 	if particles_generate_svg then
 		doGenerateSVG()
+	end
+	
+	if particles_generate_hpgl then
+		doGenerateHPGL()
 	end
 end
 -- Core (Really most basic functions) END
@@ -334,6 +360,11 @@ function line(xstart, ystart, xdest, ydest)
 		-- we currently only support "2d-drawing"
 		particles_svg = particles_svg.."<line x1=\""..xstart.."\" y1=\""..ystart.."\" x2=\""..xdest.."\" y2=\""..ydest.."\" stroke=\"black\" stroke-width=\"1px\"/>\n"
 	end
+	
+	if particles_generate_hpgl then
+		particles_hpgl = particles_hpgl.."PU"..(xstart*10)..","..(ystart*10)..";"
+		particles_hpgl = particles_hpgl.."PD"..(xdest*10)..","..(ydest*10)..";"
+	end
 end
 
 --- Draw a line straight from recent position. 
@@ -352,6 +383,10 @@ function lineTo(xpos, ypos)
 	if particles_generate_svg then
 		-- we currently only support "2d-drawing"
 		particles_svg = particles_svg.."<line x1=\""..curx.."\" y1=\""..cury.."\" x2=\""..xpos.."\" y2=\""..ypos.."\" stroke=\"black\" stroke-width=\"1px\"/>\n"
+	end
+	
+	if particles_generate_hpgl then
+		particles_hpgl = particles_hpgl.."PD"..(xpos*10)..","..(ypos*10)..";"
 	end
 	
 	pencilDown() -- if down, nothing should happen
@@ -416,4 +451,21 @@ end
 function moveBackward(steps)
 	
 end
+
+
+--- RepRap-related commands
+-- Doc: http://reprap.org/wiki/Mendel_User_Manual:_RepRapGCodes
+function setTemparatur()
+end
+
+function homeAllAxes()
+end
+
+--- HPGL-Commands
+function setPen(number)
+	if particles_generate_hpgl then
+		particles_hpgl = "SP"..number..";"
+	end
+end
+
 

@@ -3,10 +3,12 @@
 
 require("particles")
 
-particles.init("turtle")
 particles.generateGCode(false)
 particles.generateHTML(true)
 particles.generateSVG(false)
+particles.generateHPGL(true)
+
+particles.init("turtle")
 
 particles.setRotation(0)
 
