@@ -74,7 +74,7 @@ function standardInit(verbose)
 	end
 	
 	if particles_generate_hpgl then
-		particles_hpgl = "IN;SP1;PU0,0;"
+		particles_hpgl = "IN;PA;SP1;PU0,0;"
 	end
 end
 
@@ -113,6 +113,14 @@ function moveTo(xpos, ypos, zpos)
 		-- we currently only support "2d-drawing"
 		particles_html = particles_html.."context.moveTo(".. xpos*html_zoom ..", ".. ypos*html_zoom ..");\n"
 		--particles_html = particles_html.."context.stroke();\n"
+	end
+	
+	if particles_generate_hpgl and zpos == nil and xpos ~= nil and ypos ~= nil then
+		if isPencilDown then
+			particles_hpgl = particles_hpgl.."PU"..-xpos*10..","..ypos*10..";"
+		else
+			particles_hpgl = particles_hpgl.."PD"..-xpos*10..","..ypos*10..";"
+		end		
 	end
 	
 end
@@ -269,7 +277,7 @@ function doGenerateHPGL()
 	output_file = particles_projectname..".hpgl"
 	file = io.open(output_file, "w+")
 	print("Opened file: "..output_file)	
-	particles_hpgl = particles_hpgl .. "E"		
+	particles_hpgl = particles_hpgl .. "E;"		
 	file:write(particles_hpgl)
 	file:close()
 	print("Writing of "..output_file.." complete.\n")	
@@ -321,10 +329,18 @@ end
 
 function pencilUp()
 	moveToZPosition(particles_penciluppos)
+	
+	if particles_generate_hpgl then
+		particles_hpgl = particles_hpgl.."PU;"
+	end
 end
 
 function pencilDown()
 	moveToZPosition(particles_pencildownpos)
+	
+	if particles_generate_hpgl then
+		particles_hpgl = particles_hpgl.."PD;"
+	end
 end
 
 function isPencilDown()
@@ -362,8 +378,8 @@ function line(xstart, ystart, xdest, ydest)
 	end
 	
 	if particles_generate_hpgl then
-		particles_hpgl = particles_hpgl.."PU"..(xstart*10)..","..(ystart*10)..";"
-		particles_hpgl = particles_hpgl.."PD"..(xdest*10)..","..(ydest*10)..";"
+		particles_hpgl = particles_hpgl.."PU"..(-xstart*10)..","..(ystart*10)..";"
+		particles_hpgl = particles_hpgl.."PD"..(-xdest*10)..","..(ydest*10)..";"
 	end
 end
 
@@ -386,7 +402,7 @@ function lineTo(xpos, ypos)
 	end
 	
 	if particles_generate_hpgl then
-		particles_hpgl = particles_hpgl.."PD"..(xpos*10)..","..(ypos*10)..";"
+		particles_hpgl = particles_hpgl.."PD"..(-xpos*10)..","..(ypos*10)..";"
 	end
 	
 	pencilDown() -- if down, nothing should happen
