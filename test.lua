@@ -35,4 +35,7 @@ particles.line(15, 10, 15, 50)
 particles.circleAt(0, 0, 50, true)
 particles.circleAt(0, 0, 10, true)
 
+particles.moveTo(0,0)
+particles.circle(80)
+
 particles.close()

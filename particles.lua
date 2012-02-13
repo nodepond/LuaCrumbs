@@ -16,7 +16,7 @@ module(..., package.seeall)
 -- Core (Really most basic functions)
 
 -- define some variables for config and control
-particles_circlemode = 0 -- particles_circlemode: 0 = corner, 1 = radius
+particles_circlemode = 0 -- particles_circlemode: 0 = corner & HPGL, 1 = radius
 
 particles_projectname = ""
 
@@ -421,14 +421,21 @@ end
 
 -- counterclockwise is optional
 function circleAt(xpos, ypos, radius, counterclockwise)	
-	pencilUp()
-	if particles_circlemode == 0 then
-		moveTo(xpos, ypos)	  
-	elseif particles_circlemode == 1 then
+	-- HPGL-handling
+	if particles_generate_hpgl then
+		moveTo(xpos, ypos)
+		circle(radius, counterclockwise)
+	else
+	-- the other stuff (this could be a first sign of making a better architecture in the future, with serial-redering of files, not "parallel" file-processing)
+	  pencilUp()
+	  if particles_circlemode == 0 or generate_hpgl then
+	  	moveTo(xpos, ypos) 
+	  elseif particles_circlemode == 1 then
 		moveTo(xpos, ypos-(radius))
+	  end
+	  pencilDown()
+	  circle(radius, counterclockwise)	
 	end
-	pencilDown()
-	circle(radius, counterclockwise)
 end
 
 
