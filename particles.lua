@@ -499,7 +499,7 @@ end
 --- HPGL Set Pen Number
 -- @params number. Default is 1
 function setHPGLPen(number)
-	if number ~= nil then
+	if (number == nil) then
 		number = 1
 	end
 	if particles_generate_hpgl then
@@ -510,7 +510,7 @@ end
 --- HPGL Set Scalefactor
 -- @params scale. Set a custom scale-factor. Default is 10. This feature is currently exerimental.
 function setHPGLScale(scale)
-	if scale ~= nil then
+	if (scale == nil) then
 		scale = 10
 	end
 	hpgl_scale = scale
