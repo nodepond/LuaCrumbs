@@ -32,6 +32,8 @@ particles_svg = "" -- the content, that is added to the svg-file
 particles_generate_hpgl = false -- generate hpgl output file?
 particles_hpgl = "" -- the content, that is added to the hpgl-content
 
+local hpgl_scale = 10 -- currently experimental feature. add a scale to HPGL-coordinates. There is also a way to modify the initial-plotspace and scale with IN and SC-command. Maybe this will fir the need better. But let's evaluate later! 
+
 -- keep track of the current positions (we need this in some occations)
 local curx = 0
 local cury = 0
@@ -117,9 +119,9 @@ function moveTo(xpos, ypos, zpos)
 	
 	if particles_generate_hpgl and zpos == nil and xpos ~= nil and ypos ~= nil then
 		if isPencilDown then
-			particles_hpgl = particles_hpgl.."PU"..(-xpos*10)..","..(ypos*10)..";"
+			particles_hpgl = particles_hpgl.."PU"..(-xpos*hpgl_scale)..","..(ypos*hpgl_scale)..";"
 		else
-			particles_hpgl = particles_hpgl.."PD"..(-xpos*10)..","..(ypos*10)..";"
+			particles_hpgl = particles_hpgl.."PD"..(-xpos*hpgl_scale)..","..(ypos*hpgl_scale)..";"
 		end		
 	end
 	
@@ -151,6 +153,14 @@ function circle(radius, counterclockwise)
 	
 	if particles_generate_svg then
 		particles_svg = particles_svg.."<circle cx=\""..curx.."\" cy=\""..(cury+(radius)).."\" r=\""..radius.."\" stroke=\"black\" fill=\"rgb(255,255,255)\" fill-opacity=\"0.0\" stroke-width=\"1px\"/>\n"
+	end
+	
+	if particles_generate_svg then
+		particles_svg = particles_svg.."<circle cx=\""..curx.."\" cy=\""..(cury+(radius)).."\" r=\""..radius.."\" stroke=\"black\" fill=\"rgb(255,255,255)\" fill-opacity=\"0.0\" stroke-width=\"1px\"/>\n"
+	end
+	
+	if particles_generate_hpgl then
+		particles_hpgl = particles_hpgl.."CI"..(radius*hpgl_scale)..";"
 	end
 	
 end
@@ -378,8 +388,8 @@ function line(xstart, ystart, xdest, ydest)
 	end
 	
 	if particles_generate_hpgl then
-		particles_hpgl = particles_hpgl.."PU"..(-xstart*10)..","..(ystart*10)..";"
-		particles_hpgl = particles_hpgl.."PD"..(-xdest*10)..","..(ydest*10)..";"
+		particles_hpgl = particles_hpgl.."PU"..(-xstart*hpgl_scale)..","..(ystart*hpgl_scale)..";"
+		particles_hpgl = particles_hpgl.."PD"..(-xdest*hpgl_scale)..","..(ydest*hpgl_scale)..";"
 	end
 end
 
@@ -402,7 +412,7 @@ function lineTo(xpos, ypos)
 	end
 	
 	if particles_generate_hpgl then
-		particles_hpgl = particles_hpgl.."PD"..(-xpos*10)..","..(ypos*10)..";"
+		particles_hpgl = particles_hpgl.."PD"..(-xpos*hpgl_scale)..","..(ypos*hpgl_scale)..";"
 	end
 	
 	pencilDown() -- if down, nothing should happen
@@ -477,11 +487,27 @@ end
 function homeAllAxes()
 end
 
---- HPGL-Commands
-function setPen(number)
+-- HPGL-Commands
+
+--- HPGL Set Pen Number
+-- @params number. Default is 1
+function setHPGLPen(number)
+	if number ~= nil then
+		number = 1
+	end
 	if particles_generate_hpgl then
 		particles_hpgl = "SP"..number..";"
 	end
 end
+
+--- HPGL Set Scalefactor
+-- @params scale. Set a custom scale-factor. Default is 10. This feature is currently exerimental.
+function setHPGLScale(scale)
+	if scale ~= nil then
+		scale = 10
+	end
+	hpgl_scale = 10
+end
+
 
 
