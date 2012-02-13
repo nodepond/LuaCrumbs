@@ -513,7 +513,7 @@ function setHPGLScale(scale)
 	if scale ~= nil then
 		scale = 10
 	end
-	hpgl_scale = 10
+	hpgl_scale = scale
 end
 
 
