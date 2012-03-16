@@ -1,34 +1,34 @@
 -- Very first "Turtle Test" - LOGO-like programming experience
 -- Dec 2011 / Martin Wisniowski (@nodepond / @dingfabrik)
 
-require("particles")
+require("luacrumbs")
 
-particles.generateGCode(false)
-particles.generateHTML(true)
-particles.generateSVG(false)
-particles.generateHPGL(true)
+luacrumbs.generateGCode(false)
+luacrumbs.generateHTML(true)
+luacrumbs.generateSVG(false)
+luacrumbs.generateHPGL(true)
 
-particles.init("turtle")
+luacrumbs.init("turtle")
 
-particles.setRotation(0)
+luacrumbs.setRotation(0)
 
-particles.setPencilUpPosition(30)
+luacrumbs.setPencilUpPosition(30)
 
 for i=0, 6 do
-	particles.moveTo(220, 150)
-	particles.pencilDown()
+	luacrumbs.moveTo(220, 150)
+	luacrumbs.pencilDown()
 	for j=0, 240 do
-		particles.moveForward(3+i)
-		particles.addRotation(j-(120/2))
+		luacrumbs.moveForward(3+i)
+		luacrumbs.addRotation(j-(120/2))
 	end
-	particles.addRotation(35)	
+	luacrumbs.addRotation(35)	
 end
 
 function drawCircle(x, y, step, rot)
-	particles.moveTo(x, y)
+	luacrumbs.moveTo(x, y)
 	for i=0, 120 do
-		particles.moveForward(step)
-		particles.addRotation(rot+i)
+		luacrumbs.moveForward(step)
+		luacrumbs.addRotation(rot+i)
 	end
 end
 

@@ -178,7 +178,7 @@ function pause(seconds)
 end
 -- verbose = true or false
 function init(projectname, verbose)
-	if projectname == nil then projectname = "particles-project" end
+	if projectname == nil then projectname = "luacrumbs-project" end
 	crumbs_projectname = projectname
 	
 	crumbs_circlemode = 1 -- set circlemode to radius, not corner
@@ -217,7 +217,7 @@ function doGenerateHTML()
 		
 	file:write("<html>\n")
 	file:write("<head>\n")
-	file:write("<title>"..output_file.." - Made with Particles G-Code Generator</title>\n")
+	file:write("<title>"..output_file.." - Made with LuaCrumbs</title>\n")
 	file:write("</head>\n")
 	file:write("<body>\n")
 	file:write("<canvas id=\"c\" width=\""..(outerx+html_linewidth+1)*html_zoom.."\" height=\""..(outery+html_linewidth+1)*html_zoom.."\"></canvas>\n")
@@ -233,7 +233,7 @@ function doGenerateHTML()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
---- Should Particles generate a ngc-file (G-Code). The default is yes, since it is intended to use Particles with G-Code!
+--- Should LuaCrumbs generate a ngc-file (G-Code). The default is yes, since it is intended to use LuaCrumbs with G-Code!
 -- @params flag: true or false
 function generateGCode(flag)
 	crumbs_generate_gcode = flag
@@ -249,7 +249,7 @@ function doGenerateGCode()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
---- Should Particles generate a svg-file. The default is no.
+--- Should LuaCrumbs generate a svg-file. The default is no.
 -- @params flag: true or false
 function generateSVG(flag)
 	crumbs_generate_svg = flag
@@ -276,7 +276,7 @@ function doGenerateSVG()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
---- Should Particles generate a hpgl-file (HPGL). The default is no.
+--- Should LuaCrumbs generate a hpgl-file (HPGL). The default is no.
 -- @params flag: true or false
 function generateHPGL(flag)
 	crumbs_generate_hpgl = flag
