@@ -176,14 +176,14 @@ function pause(seconds)
 	end
 	crumbs_gcode = crumbs_gcode.."G4 P"..seconds.."\n"
 end
--- verbose = true or false
-function init(projectname, verbose)
+
+function init(projectname)
 	if projectname == nil then projectname = "luacrumbs-project" end
 	crumbs_projectname = projectname
 	
 	crumbs_circlemode = 1 -- set circlemode to radius, not corner
 	
-	standardInit(verbose)
+	standardInit(false)
 	setSpeed(1200)
 	
 	outerx = 0
@@ -458,6 +458,26 @@ end
 function getRotation()
 	return rotation
 end
+
+--- Getter of x
+-- Get the current x-value
+function getX()
+	return curx
+end
+
+--- Getter of y
+-- Get the current y-value
+function getY()
+	return cury
+end
+
+--- Getter of z
+-- Get the current z-value
+function getZ()
+	return curz
+end
+
+
 
 --- Moves the "cursor" forward with the current-rotation angle be the specified value  
 -- @param steps Length of the step to move forward
