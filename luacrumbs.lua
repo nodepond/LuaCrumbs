@@ -333,10 +333,12 @@ function getPencilDownPosition()
 	return crumbs_pencildownpos
 end
 
-function moveToZPosition(zpos)
+local function moveToZPosition(zpos)
 	moveTo(nil, nil, zpos)
 end
 
+--- Moves the pencil to pencilup-position (z-axis)  
+-- Move the head up and down with pencilUp() and pencilDown()
 function pencilUp()
 	moveToZPosition(crumbs_penciluppos)
 	
@@ -345,6 +347,8 @@ function pencilUp()
 	end
 end
 
+--- Moves the pencil to pencildown-position (z-axis)  
+-- Move the head up and down with pencilUp() and pencilDown()
 function pencilDown()
 	moveToZPosition(crumbs_pencildownpos)
 	
@@ -353,6 +357,8 @@ function pencilDown()
 	end
 end
 
+--- Checks, if pencil is currently at drawing (z) position  
+-- Returns true, if the pencil is currently at the drawing-position, aka pencildown-position, otherwise false.
 function isPencilDown()
 	return curz == crumbs_pencildownpos
 end
