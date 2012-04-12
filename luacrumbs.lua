@@ -361,14 +361,13 @@ end
 -- This is a little ugly dependency, also that there is an 'if crumbs_generate_html then'-statement at this place. 
 -- This kind of statements should be only in the Core!!
 
---- Draws a line from start position to end position. 
--- Before drawing to head is always moved up to up-position (z-axis).
--- When drawing stats, the head is put down to down-position, then the line s drawn.
--- If pencil is not down, it will go down.
--- @param xstart x-start-position in absolute coordinates
--- @param ystart y-start-position in absolute coordinates
--- @param xpos x-destination in absolute coordinates
--- @param ypos y-destination in absolute coordinates
+--- Draws a line from start X/Y-position to X/Y-destination position. 
+-- Before starting to draw, the drawing-head is always moved up to up-position (z-axis), aka pencilUp.
+-- When drawing starts, the head is put down to down-position aka pencilDown. If pencil is not down, it will go down.
+-- @param xstart X-start-position in absolute coordinates
+-- @param ystart Y-start-position in absolute coordinates
+-- @param xpos X-destination in absolute coordinates
+-- @param ypos Y-destination in absolute coordinates
 function line(xstart, ystart, xdest, ydest)
 	pencilUp()
 	moveTo(xstart, ystart)
@@ -393,10 +392,10 @@ function line(xstart, ystart, xdest, ydest)
 	end
 end
 
---- Draw a line straight from recent position. 
+--- Draw a line straight from recent position to X/Y-destination.
 -- If pencil is not down, it will go down.
--- @param xpos x-destination in absolute coordinates
--- @param ypos y-destination in absolute coordinates
+-- @param xpos X-Position of destination in absolute coordinates
+-- @param ypos Y-Position of destination in absolute coordinates
 function lineTo(xpos, ypos)
 	-- important: generate html first, otherwise "moveTo" will set "head" to current position. 
 	-- result will be a context.lineTo with zero pixel length
@@ -419,7 +418,11 @@ function lineTo(xpos, ypos)
 	moveTo(xpos, ypos)
 end
 
--- counterclockwise is optional
+--- Draw a circle at a specified position 
+-- @param xpos X-position of the circle-center.
+-- @param ypos Y-position of the circle-center.
+-- @param radius Radius of the circle.
+-- @param counterclockwise (Optional) parameter. If true, the circle gets drawn counter-clockwise (not supported on all lanuages). The default value is nil (or false).
 function circleAt(xpos, ypos, radius, counterclockwise)	
 	-- HPGL-handling
 	if crumbs_generate_hpgl then
@@ -442,7 +445,7 @@ end
 -- Turtle Core (applying "LOGO-like" drawing, with rotating the "cursor" and "moving forwards and backwards")
 
 --- Add a rotation to the current rotation-position 
--- @param degrees Degrees to add. Value can be negative as well.
+-- @param degrees Degrees to add to th current rotation. Value can be positive and negative as well.
 function addRotation(degrees)
 	rotation = rotation + degrees
 end
@@ -454,25 +457,25 @@ function setRotation(degrees)
 end
 
 --- Get the rotation parameter 
--- Retruns the recent rotation-value
+-- Returns the recent rotation-value
 function getRotation()
 	return rotation
 end
 
 --- Getter of x
--- Get the current x-value
+-- Returns the current x-value
 function getX()
 	return curx
 end
 
 --- Getter of y
--- Get the current y-value
+-- Returns the current y-value
 function getY()
 	return cury
 end
 
 --- Getter of z
--- Get the current z-value
+-- Returns the current z-value
 function getZ()
 	return curz
 end
