@@ -190,15 +190,12 @@ function init(projectname)
 	outery = 0
 end
 
--- universal function to write something into the gcode file, i.e. custom commands like "M101"
-function insertIntoGCodeFile(string)
-	crumbs_gcode = crumbs_gcode..string.."\n"
-end
-
 --- Generates a html-5 preview file.
 -- The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code.
+-- Notice: The frameworl only draws a line on canvas, of the z-position is equal to the pencilDown-position. If you use i.e. moveTo-commands, be sure to call pencilDown() beforehand, otherwise there will be no drawn path.
 -- @params flag: true or false
 -- @params zoom_factor: (optional) scale the output with this zoom-factor. Default: 1
+-- @params line_width: (optional) Set the line-width of the drawn-path.
 function generateHTML(flag, zoom_factor, line_width)
 	crumbs_generate_html = flag
 	if (zoom_factor ~= nil) then
@@ -209,7 +206,7 @@ function generateHTML(flag, zoom_factor, line_width)
 	end
 end
 
-function doGenerateHTML()
+local function doGenerateHTML()
 	print("\nStarting to write html-file.")
 	output_file = crumbs_projectname..".html"
 	file = io.open(output_file, "w+")
@@ -239,7 +236,7 @@ function generateGCode(flag)
 	crumbs_generate_gcode = flag
 end
 
-function doGenerateGCode()
+local function doGenerateGCode()
 	print("\nStarting to write GCode-file.")
 	output_file = crumbs_projectname..".ngc"
 	file = io.open(output_file, "w+")
@@ -255,7 +252,7 @@ function generateSVG(flag)
 	crumbs_generate_svg = flag
 end
 
-function doGenerateSVG()
+local function doGenerateSVG()
 	print("\nStarting to write SVG-file.")
 	output_file = crumbs_projectname..".svg"
 	file = io.open(output_file, "w+")
@@ -282,7 +279,7 @@ function generateHPGL(flag)
 	crumbs_generate_hpgl = flag
 end
 
-function doGenerateHPGL()
+local function doGenerateHPGL()
 	print("\nStarting to write HPGL-file.")
 	output_file = crumbs_projectname..".hpgl"
 	file = io.open(output_file, "w+")
@@ -293,6 +290,9 @@ function doGenerateHPGL()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
+--- Close the project. This command is mandatory.
+-- Call this function at the end of your lua-script. It is a must, because ending-tags and diffrerent other parameters are written here.
+-- Without this closing statement, you will not get corrently generated files! (In fact, that are not generated at all)
 function close()	
 	if crumbs_generate_gcode then		
 		crumbs_gcode = crumbs_gcode.."M2\n" -- is this call maybe in the wrong place?
@@ -521,6 +521,27 @@ function setTemparatur()
 end
 
 function homeAllAxes()
+end
+
+-- GCode-Commands
+
+--- Insert whatever you want onto a G-Code file
+-- Universal function to write something into the gcode file, i.e. custom commands like "M101"
+function insertIntoGCodeFile(string)
+	crumbs_gcode = crumbs_gcode..string.."\n"
+end
+
+
+--- GCode: Use Path Tolerance Mode
+-- @params flag - true or false. If true, path tolerance mode is selected. It inserts a "G64" command into the CGode-file
+-- G64-Mode is much faster in moving the head, but to the cost of possible errors in drawing the path - means it can be not 100% accurate on the path.
+-- If set to false, the GCode-command "G61" is inserted into the GCode-file. This switches the machine back to "exact path drawing" mode.
+function setGCodeUsePathTolanceMode(flag)
+	if (flag) then
+		crumbs_gcode = crumbs_gcode.."G64\n"
+	else
+		crumbs_gcode = crumbs_gcode.."G61\n"
+	end
 end
 
 -- HPGL-Commands
