@@ -1,12 +1,12 @@
 -----------------------------------------------------------------------------
 -- LuaCrumbs.lua
--- Scripting-libary for generating G-Code for CNC-machines.
+-- Scripting-libary for generating Code for FabLabs.
 -- Jump straight into the fun!
 -- http://luacrumbs.nodepond.com
 --
 -- License: MIT/X
 -- 
--- (c) 2011 / 2012 Nodepond / Martin Wisniowski (hello@nodepond.com)
+-- (c) 2011 / 2012 Nodepond.com / Martin Wisniowski (hello@nodepond.com)
 --
 -----------------------------------------------------------------------------
 
@@ -50,6 +50,22 @@ local rotation = 0
 local html_zoom = 1
 local html_linewidth = 1
 
+--- Inits the project with the projectname
+-- You init the project with a custom projectname. This name will be used, to generate the different files, like .svg, .html, .ngc
+-- @params projectname Name of the project, i.e. "myProject" 
+function init(projectname)
+	if projectname == nil then projectname = "luacrumbs-project" end
+	crumbs_projectname = projectname
+	
+	crumbs_circlemode = 1 -- set circlemode to radius, not corner
+	
+	standardInit(false)
+	setSpeed(1200)
+	
+	outerx = 0
+	outery = 0
+end
+
 function standardInit(verbose)
 	-- this is the standard init
 		
@@ -80,18 +96,11 @@ function standardInit(verbose)
 	end
 end
 
-function setSpeed(val)
-	if val == nil or val == 0 then
-		crumbs_gcode = crumbs_gcode.."G0\n"
-		return
-	end
-	if val > 0 then
-		crumbs_gcode = crumbs_gcode.."F"..val.."\n"
-	end
-end
-
--- Move to absolute coordinate (every parameter is optional. If nil, the xyz value is unchanged)
+--- Move to absolute coordinate (every parameter is optional. If nil, the xyz value is unchanged)
 -- TODO: Please test this with only one or zero parameters with an g-code device
+-- @params xpos Move to absolute x-position. If nil, the x-value is unchanged
+-- @params ypos Move to absolute y-position. If nil, the y-value is unchanged
+-- @params zpos Move to absolute z-position. If nil, the z-value is unchanged
 function moveTo(xpos, ypos, zpos)
 	crumbs_gcode = crumbs_gcode.."G1"
 	if xpos ~= nil then crumbs_gcode = crumbs_gcode.." x"..xpos end
@@ -127,7 +136,9 @@ function moveTo(xpos, ypos, zpos)
 	
 end
 
--- Draw circle, counterclockwise-parameter is optional
+--- Draw circle, counterclockwise-parameter is optional
+-- @params radius (number) Radius to draw
+-- @params counterclockwise (bool) Draw counterclockwise (optional)
 function circle(radius, counterclockwise)
 	if counterclockwise == true then
 		crumbs_gcode = crumbs_gcode.."G3 J"..radius.."\n"
@@ -165,6 +176,9 @@ function circle(radius, counterclockwise)
 	
 end
 
+--- Pause the drawing in seconds
+-- Currently only in G-Code 
+-- @params seconds (number) seconds to pause. Parameter must be a positive number.
 function pause(seconds)
 	if seconds == nil then
 		seconds = 0
@@ -175,19 +189,6 @@ function pause(seconds)
 		end
 	end
 	crumbs_gcode = crumbs_gcode.."G4 P"..seconds.."\n"
-end
-
-function init(projectname)
-	if projectname == nil then projectname = "luacrumbs-project" end
-	crumbs_projectname = projectname
-	
-	crumbs_circlemode = 1 -- set circlemode to radius, not corner
-	
-	standardInit(false)
-	setSpeed(1200)
-	
-	outerx = 0
-	outery = 0
 end
 
 --- Generates a html-5 preview file.
@@ -290,7 +291,7 @@ local function doGenerateHPGL()
 	print("Writing of "..output_file.." complete.\n")	
 end
 
---- Close the project. This command is mandatory.
+--- Close the project. This command is mandatory!
 -- Call this function at the end of your lua-script. It is a must, because ending-tags and diffrerent other parameters are written here.
 -- Without this closing statement, you will not get corrently generated files! (In fact, that are not generated at all)
 function close()	
@@ -317,18 +318,28 @@ crumbs_penciluppos = 30
 crumbs_pencildownpos = 0
 
 -- Drawing Core (first layer upon core: simple "2D/3D" drawing functions)
+
+--- Setter of the pencil up position
+-- Sets the pencil up position
+-- @params zpos (number) pencil up position
 function setPencilUpPosition(zpos)
 	crumbs_penciluppos = zpos
 end
 
+--- Setter of the pencil down position
+-- Sets the pencil down position
+-- @params zpos (number) pencil down position
 function setPencilDownPosition(zpos)
 	crumbs_pencildownpos = zpos
 end
 
+--- Getter of the pencil up position
+-- Gets the current pencil up position, returns a number
 function getPencilUpPosition()
 	return crumbs_penciluppos
 end
-
+--- Getter of the pencil up position
+-- Gets the current pencil up position, returns a number
 function getPencilDownPosition()
 	return crumbs_pencildownpos
 end
@@ -372,8 +383,8 @@ end
 -- When drawing starts, the head is put down to down-position aka pencilDown. If pencil is not down, it will go down.
 -- @param xstart X-start-position in absolute coordinates
 -- @param ystart Y-start-position in absolute coordinates
--- @param xpos X-destination in absolute coordinates
--- @param ypos Y-destination in absolute coordinates
+-- @param xdest X-destination in absolute coordinates
+-- @param ydest Y-destination in absolute coordinates
 function line(xstart, ystart, xdest, ydest)
 	pencilUp()
 	moveTo(xstart, ystart)
@@ -510,6 +521,7 @@ end
 
 --- Same as moveForward, but in the other direction
 -- @param steps Length of the step to move backwards
+-- TODO: This function is currently not implemented!
 function moveBackward(steps)
 	
 end
@@ -543,6 +555,19 @@ function setGCodeUsePathTolanceMode(flag)
 		crumbs_gcode = crumbs_gcode.."G61\n"
 	end
 end
+
+--- Set the speed-parameter in G-Code file
+-- @params val Set the speed-parameter, if nil or 0, G0 for maximum speed is added to the G-Code
+function setGCodeSpeed(val)
+	if val == nil or val == 0 then
+		crumbs_gcode = crumbs_gcode.."G0\n"
+		return
+	end
+	if val > 0 then
+		crumbs_gcode = crumbs_gcode.."F"..val.."\n"
+	end
+end
+
 
 -- HPGL-Commands
 

@@ -1,0 +1,1082 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+<h1>Modules</h1>
+<ul>
+
+	<li>
+		<a href="../modules/luacrumbs.html">luacrumbs</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li><strong>luacrumbs.lua</strong></li>
+	
+</ul>
+
+
+
+
+
+
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h1>File <code>luacrumbs.lua</code></h1>
+
+
+<p>LuaCrumbs.lua Scripting-libary for generating Code for FabLabs. Jump straight into the fun! http://luacrumbs.nodepond.com  License: MIT/X  (c) 2011 / 2012 Nodepond.com / Martin Wisniowski (hello@nodepond.com)  </p>
+
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#addRotation">addRotation</a>&nbsp;(degrees)</td>
+	<td class="summary">Add a rotation to the current rotation-position </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#circle">circle</a>&nbsp;(radius, counterclockwise)</td>
+	<td class="summary">Draw circle, counterclockwise-parameter is optional </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#circleAt">circleAt</a>&nbsp;(xpos, ypos, radius, counterclockwise)</td>
+	<td class="summary">Draw a circle at a specified position </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#close">close</a>&nbsp;()</td>
+	<td class="summary">Close the project.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#generateGCode">generateGCode</a>&nbsp;(flag)</td>
+	<td class="summary">Should LuaCrumbs generate a ngc-file (G-Code).</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#generateHPGL">generateHPGL</a>&nbsp;(flag)</td>
+	<td class="summary">Should LuaCrumbs generate a hpgl-file (HPGL).</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#generateHTML">generateHTML</a>&nbsp;(flag, zoom_factor, line_width)</td>
+	<td class="summary">Generates a html-5 preview file.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#generateSVG">generateSVG</a>&nbsp;(flag)</td>
+	<td class="summary">Should LuaCrumbs generate a svg-file.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#getPencilDownPosition">getPencilDownPosition</a>&nbsp;()</td>
+	<td class="summary">Getter of the pencil up position Gets the current pencil up position, returns a number </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#getPencilUpPosition">getPencilUpPosition</a>&nbsp;()</td>
+	<td class="summary">Getter of the pencil up position Gets the current pencil up position, returns a number </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#getRotation">getRotation</a>&nbsp;()</td>
+	<td class="summary">Get the rotation parameter Returns the recent rotation-value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#getX">getX</a>&nbsp;()</td>
+	<td class="summary">Getter of x Returns the current x-value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#getY">getY</a>&nbsp;()</td>
+	<td class="summary">Getter of y Returns the current y-value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#getZ">getZ</a>&nbsp;()</td>
+	<td class="summary">Getter of z Returns the current z-value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#init">init</a>&nbsp;(projectname)</td>
+	<td class="summary">Inits the project with the projectname You init the project with a custom projectname.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#insertIntoGCodeFile">insertIntoGCodeFile</a>&nbsp;(string)</td>
+	<td class="summary">Insert whatever you want onto a G-Code file Universal function to write something into the gcode file, i.e.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#isPencilDown">isPencilDown</a>&nbsp;()</td>
+	<td class="summary">Checks, if pencil is currently at drawing (z) position Returns true, if the pencil is currently at the drawing-position, aka pencildown-position, otherwise false.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#line">line</a>&nbsp;(xstart, ystart, xdest, ydest)</td>
+	<td class="summary">Draws a line from start X/Y-position to X/Y-destination position.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#lineTo">lineTo</a>&nbsp;(xpos, ypos)</td>
+	<td class="summary">Draw a line straight from recent position to X/Y-destination.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#moveBackward">moveBackward</a>&nbsp;(steps)</td>
+	<td class="summary">Same as moveForward, but in the other direction </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#moveForward">moveForward</a>&nbsp;(steps)</td>
+	<td class="summary">Moves the "cursor" forward with the current-rotation angle be the specified value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#moveTo">moveTo</a>&nbsp;(xpos, ypos, zpos)</td>
+	<td class="summary">Move to absolute coordinate (every parameter is optional.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#pause">pause</a>&nbsp;(seconds)</td>
+	<td class="summary">Pause the drawing in seconds Currently only in G-Code </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#pencilDown">pencilDown</a>&nbsp;()</td>
+	<td class="summary">Moves the pencil to pencildown-position (z-axis) Move the head up and down with pencilUp() and pencilDown() </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#pencilUp">pencilUp</a>&nbsp;()</td>
+	<td class="summary">Moves the pencil to pencilup-position (z-axis) Move the head up and down with pencilUp() and pencilDown() </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setGCodeSpeed">setGCodeSpeed</a>&nbsp;(val)</td>
+	<td class="summary">Set the speed-parameter in G-Code file </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setGCodeUsePathTolanceMode">setGCodeUsePathTolanceMode</a>&nbsp;(flag)</td>
+	<td class="summary">GCode: Use Path Tolerance Mode </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setHPGLPen">setHPGLPen</a>&nbsp;(number)</td>
+	<td class="summary">HPGL Set Pen Number </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setHPGLScale">setHPGLScale</a>&nbsp;(scale)</td>
+	<td class="summary">HPGL Set Scalefactor </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setPencilDownPosition">setPencilDownPosition</a>&nbsp;(zpos)</td>
+	<td class="summary">Setter of the pencil down position Sets the pencil down position </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setPencilUpPosition">setPencilUpPosition</a>&nbsp;(zpos)</td>
+	<td class="summary">Setter of the pencil up position Sets the pencil up position </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setRotation">setRotation</a>&nbsp;(degrees)</td>
+	<td class="summary">Sets the rotation directly to the specified value </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#setTemparatur">setTemparatur</a>&nbsp;()</td>
+	<td class="summary">RepRap-related commands Doc: http://reprap.org/wiki/Mendel_User_Manual:_RepRapGCodes </td>
+	</tr>
+
+</table>
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="addRotation"></a><strong>addRotation</strong>&nbsp;(degrees)</dt>
+<dd>
+Add a rotation to the current rotation-position
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  degrees: Degrees to add to th current rotation. Value can be positive and negative as well.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="circle"></a><strong>circle</strong>&nbsp;(radius, counterclockwise)</dt>
+<dd>
+Draw circle, counterclockwise-parameter is optional
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  radius: 
+	</li>
+	
+	<li>
+	  counterclockwise: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="circleAt"></a><strong>circleAt</strong>&nbsp;(xpos, ypos, radius, counterclockwise)</dt>
+<dd>
+Draw a circle at a specified position
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  xpos: X-position of the circle-center.
+	</li>
+	
+	<li>
+	  ypos: Y-position of the circle-center.
+	</li>
+	
+	<li>
+	  radius: Radius of the circle.
+	</li>
+	
+	<li>
+	  counterclockwise: (Optional) parameter. If true, the circle gets drawn counter-clockwise (not supported on all lanuages). The default value is nil (or false).
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="close"></a><strong>close</strong>&nbsp;()</dt>
+<dd>
+Close the project. This command is mandatory! Call this function at the end of your lua-script. It is a must, because ending-tags and diffrerent other parameters are written here. Without this closing statement, you will not get corrently generated files! (In fact, that are not generated at all)
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="generateGCode"></a><strong>generateGCode</strong>&nbsp;(flag)</dt>
+<dd>
+Should LuaCrumbs generate a ngc-file (G-Code). The default is yes, since it is intended to use LuaCrumbs with G-Code!
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  flag: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="generateHPGL"></a><strong>generateHPGL</strong>&nbsp;(flag)</dt>
+<dd>
+Should LuaCrumbs generate a hpgl-file (HPGL). The default is no.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  flag: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="generateHTML"></a><strong>generateHTML</strong>&nbsp;(flag, zoom_factor, line_width)</dt>
+<dd>
+Generates a html-5 preview file. The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code. Notice: The frameworl only draws a line on canvas, of the z-position is equal to the pencilDown-position. If you use i.e. moveTo-commands, be sure to call pencilDown() beforehand, otherwise there will be no drawn path.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  flag: 
+	</li>
+	
+	<li>
+	  zoom_factor: 
+	</li>
+	
+	<li>
+	  line_width: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="generateSVG"></a><strong>generateSVG</strong>&nbsp;(flag)</dt>
+<dd>
+Should LuaCrumbs generate a svg-file. The default is no.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  flag: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="getPencilDownPosition"></a><strong>getPencilDownPosition</strong>&nbsp;()</dt>
+<dd>
+Getter of the pencil up position Gets the current pencil up position, returns a number
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="getPencilUpPosition"></a><strong>getPencilUpPosition</strong>&nbsp;()</dt>
+<dd>
+Getter of the pencil up position Gets the current pencil up position, returns a number
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="getRotation"></a><strong>getRotation</strong>&nbsp;()</dt>
+<dd>
+Get the rotation parameter Returns the recent rotation-value
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="getX"></a><strong>getX</strong>&nbsp;()</dt>
+<dd>
+Getter of x Returns the current x-value
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="getY"></a><strong>getY</strong>&nbsp;()</dt>
+<dd>
+Getter of y Returns the current y-value
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="getZ"></a><strong>getZ</strong>&nbsp;()</dt>
+<dd>
+Getter of z Returns the current z-value
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="init"></a><strong>init</strong>&nbsp;(projectname)</dt>
+<dd>
+Inits the project with the projectname You init the project with a custom projectname. This name will be used, to generate the different files, like .svg, .html, .ngc
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  projectname: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="insertIntoGCodeFile"></a><strong>insertIntoGCodeFile</strong>&nbsp;(string)</dt>
+<dd>
+Insert whatever you want onto a G-Code file Universal function to write something into the gcode file, i.e. custom commands like "M101"
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  string: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="isPencilDown"></a><strong>isPencilDown</strong>&nbsp;()</dt>
+<dd>
+Checks, if pencil is currently at drawing (z) position Returns true, if the pencil is currently at the drawing-position, aka pencildown-position, otherwise false.
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="line"></a><strong>line</strong>&nbsp;(xstart, ystart, xdest, ydest)</dt>
+<dd>
+Draws a line from start X/Y-position to X/Y-destination position. Before starting to draw, the drawing-head is always moved up to up-position (z-axis), aka pencilUp. When drawing starts, the head is put down to down-position aka pencilDown. If pencil is not down, it will go down.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  xstart: X-start-position in absolute coordinates
+	</li>
+	
+	<li>
+	  ystart: Y-start-position in absolute coordinates
+	</li>
+	
+	<li>
+	  xdest: X-destination in absolute coordinates
+	</li>
+	
+	<li>
+	  ydest: Y-destination in absolute coordinates
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="lineTo"></a><strong>lineTo</strong>&nbsp;(xpos, ypos)</dt>
+<dd>
+Draw a line straight from recent position to X/Y-destination. If pencil is not down, it will go down.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  xpos: X-Position of destination in absolute coordinates
+	</li>
+	
+	<li>
+	  ypos: Y-Position of destination in absolute coordinates
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="moveBackward"></a><strong>moveBackward</strong>&nbsp;(steps)</dt>
+<dd>
+Same as moveForward, but in the other direction
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  steps: Length of the step to move backwards TODO: This function is currently not implemented!
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="moveForward"></a><strong>moveForward</strong>&nbsp;(steps)</dt>
+<dd>
+Moves the "cursor" forward with the current-rotation angle be the specified value
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  steps: Length of the step to move forward
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="moveTo"></a><strong>moveTo</strong>&nbsp;(xpos, ypos, zpos)</dt>
+<dd>
+Move to absolute coordinate (every parameter is optional. If nil, the xyz value is unchanged) TODO: Please test this with only one or zero parameters with an g-code device
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  xpos: 
+	</li>
+	
+	<li>
+	  ypos: 
+	</li>
+	
+	<li>
+	  zpos: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="pause"></a><strong>pause</strong>&nbsp;(seconds)</dt>
+<dd>
+Pause the drawing in seconds Currently only in G-Code
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  seconds: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="pencilDown"></a><strong>pencilDown</strong>&nbsp;()</dt>
+<dd>
+Moves the pencil to pencildown-position (z-axis) Move the head up and down with pencilUp() and pencilDown()
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="pencilUp"></a><strong>pencilUp</strong>&nbsp;()</dt>
+<dd>
+Moves the pencil to pencilup-position (z-axis) Move the head up and down with pencilUp() and pencilDown()
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setGCodeSpeed"></a><strong>setGCodeSpeed</strong>&nbsp;(val)</dt>
+<dd>
+Set the speed-parameter in G-Code file
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  val: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setGCodeUsePathTolanceMode"></a><strong>setGCodeUsePathTolanceMode</strong>&nbsp;(flag)</dt>
+<dd>
+GCode: Use Path Tolerance Mode
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  flag: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setHPGLPen"></a><strong>setHPGLPen</strong>&nbsp;(number)</dt>
+<dd>
+HPGL Set Pen Number
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  number: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setHPGLScale"></a><strong>setHPGLScale</strong>&nbsp;(scale)</dt>
+<dd>
+HPGL Set Scalefactor
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  scale: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setPencilDownPosition"></a><strong>setPencilDownPosition</strong>&nbsp;(zpos)</dt>
+<dd>
+Setter of the pencil down position Sets the pencil down position
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  zpos: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setPencilUpPosition"></a><strong>setPencilUpPosition</strong>&nbsp;(zpos)</dt>
+<dd>
+Setter of the pencil up position Sets the pencil up position
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  zpos: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setRotation"></a><strong>setRotation</strong>&nbsp;(degrees)</dt>
+<dd>
+Sets the rotation directly to the specified value
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  degrees: Degrees to set. Value should be between -360 and 360.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="setTemparatur"></a><strong>setTemparatur</strong>&nbsp;()</dt>
+<dd>
+RepRap-related commands Doc: http://reprap.org/wiki/Mendel_User_Manual:_RepRapGCodes
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+	<p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->	
+</body>
+</html>
