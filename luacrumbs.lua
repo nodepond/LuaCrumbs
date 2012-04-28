@@ -112,6 +112,19 @@ function moveTo(xpos, ypos, zpos)
 	if zpos ~= nil then crumbs_gcode = crumbs_gcode.." z"..zpos end
 	crumbs_gcode = crumbs_gcode.."\n"
 	
+	if crumbs_generate_html3d then
+		if xpos == nil then
+			xpos = curx
+		end
+		if ypos == nil then
+			ypos = cury
+		end
+		if zpos == nil then
+			zpos = curz
+		end
+		crumbs_pde3d = crumbs_pde3d.."line("..curx..", "..cury..", "..curz..", "..xpos..", "..ypos..", "..zpos..");\n"
+	end
+	
 	-- update the current position
 	if xpos ~= nil then curx = xpos end
 	if ypos ~= nil then cury = ypos end
@@ -271,39 +284,73 @@ local function doGenerateHTML3D()
 	file = io.open(output_file, "w+")
 	print("Opened file: "..output_file)	
 	
-	file:write("float incx;\n")
-	file:write("float incz;\n")
+	file:write("boolean isRotating = false;\n")
+	file:write("boolean alternateColors = false;\n")
+	file:write("float incx = 0.;\n")
+	file:write("float incy = 0.;\n")
+	file:write("float middlex;\n")
+	file:write("float middley;\n")
+	file:write("float middlez;\n")
+	file:write("float rotX = 0.;\n")
+	file:write("float rotY = 0.;\n")
 	file:write("void setup() {\n")
-	file:write("	size(640, 360, OPENGL);\n")
+	file:write("	size(800, 600, OPENGL);\n")
 	file:write("	fill(184, 235, 184);\n")
-	file:write("	incx = 0.;\n")
-	file:write("	incz = 0.;\n")
 	file:write("}\n")
 	file:write("\n")
 	file:write("void draw() {\n")
-	file:write("	lights();\n")
+	file:write("	noLights();\n")
 	file:write("	background(255);\n")
-	file:write("	// Change height of the camera with mouseY\n")
-	file:write("	camera(30.0, mouseY, 220.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);\n")
-	file:write("	rotateX((PI*2)*incx);\n")
-	file:write("	rotateZ((PI*2)*incz);\n")
+	file:write("	camera(0.0, middlez, 220.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);\n")
+	
+	file:write("	if (mousePressed) {\n")
+	file:write("	// do nothing\n")
+	file:write("	} else {\n")
+	file:write("	rotX = (PI*2)*((mouseX/(float)width)+incx);\n")
+	file:write("	rotY = (PI*2)*((mouseY/(float)width)+incy);\n")
+	file:write("	}\n")
+	file:write("	translate(middlex, middley, 0.);\n")
+	file:write("	rotateX(rotX);\n")
+	file:write("	rotateY(rotY);\n")
+	file:write("	translate(-middlex, -middley, -0.);\n")
 	file:write("	\n")
-	file:write("	incx += 0.003;\n")
-	file:write("	if (incz >= 1.0) {\n")
-	file:write("		incz = 0.;\n")
+	file:write("	if (isRotating) {\n")
+	file:write("		incx += 0.0003;\n")
+	file:write("		if (incx >= 1.0) {\n")
+	file:write("			incx = 0.;\n")
+	file:write("		}\n")
+	file:write("		incy += 0.001;\n")
+	file:write("		if (incy >= 1.0) {\n")
+	file:write("			incy = 0.;\n")
+	file:write("		}\n")
 	file:write("	}\n")
-	file:write("	incz += 0.01;\n")
-	file:write("	if (incz >= 1.0) {\n")
-	file:write("		incz = 0.;\n")
-	file:write("	}\n")
-	file:write("	noStroke();\n")
+	file:write("	// noStroke();\n")
 	file:write("	// box(90);\n")
-	file:write("	stroke(100);\n")
+	file:write("	stroke(40, 120, 40);\n")
 	file:write("	line(-100, 0, 0, 100, 0, 0);\n")
 	file:write("	line(0, -100, 0, 0, 100, 0);\n")
 	file:write("	line(0, 0, -100, 0, 0, 100);\n")
 	file:write("	stroke(0);\n")
-	file:write("	line(50, 0, -100, 0, 50, 100);\n") -- insert custom code here!!
+	file:write(crumbs_pde3d) -- insert the custom code
+	file:write("}\n")
+	file:write("void mouseDragged() {\n")
+	file:write("	middlex += mouseX - pmouseX;\n")
+	file:write("	middley += mouseY - pmouseY;\n")
+	file:write("}\n")
+	file:write("void keyPressed() {\n")
+	file:write("	if (keyCode == UP) {\n")
+	file:write("		middlez += 15.0;\n")
+	file:write("	}\n")
+	file:write("	if (keyCode == DOWN) {\n")
+	file:write("		middlez -= 15.0;\n")
+	file:write("	}\n")
+	file:write("	if (key == 'r' || key == 'R') {\n")
+	file:write("		if (isRotating) {\n")
+	file:write("			isRotating = false;\n")
+	file:write("		} else {\n")
+	file:write("			isRotating = true;\n")
+	file:write("		}\n")
+	file:write("	}\n")
 	file:write("}\n")
 	
 	print("Writing of "..output_file.." complete.\n")
