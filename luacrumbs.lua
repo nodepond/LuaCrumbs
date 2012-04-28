@@ -26,6 +26,10 @@ crumbs_gcode = "" -- the content, that is added to the html-file
 crumbs_generate_html = true -- generate html output file?
 crumbs_html = "" -- the content, that is added to the html-file
 
+crumbs_generate_html3d = true -- generate a html-3d output file (uses webGL)?
+crumbs_html3d = "" -- the content, that is added to the html-3d-file
+crumbs_pde3d = "" -- storing the processing-file, that gets loaded into processingjs-facility 
+
 crumbs_generate_svg = false -- generate svg output file?
 crumbs_svg = "" -- the content, that is added to the svg-file
 
@@ -60,7 +64,7 @@ function init(projectname)
 	crumbs_circlemode = 1 -- set circlemode to radius, not corner
 	
 	standardInit(false)
-	setSpeed(1200)
+	--setSpeed(1200)
 	
 	outerx = 0
 	outery = 0
@@ -162,8 +166,14 @@ function circle(radius, counterclockwise)
 		crumbs_html = crumbs_html.."context.lineWidth = 2;\n"		
 	end
 	
-	if crumbs_generate_svg then
-		crumbs_svg = crumbs_svg.."<circle cx=\""..curx.."\" cy=\""..(cury+(radius)).."\" r=\""..radius.."\" stroke=\"black\" fill=\"rgb(255,255,255)\" fill-opacity=\"0.0\" stroke-width=\"1px\"/>\n"
+	if crumbs_generate_html3d then
+		crumbs_html3d = crumbs_html3d.."\n" -- Do Processing
+		if counterclockwise then 
+			crumbs_html3d = crumbs_html3d.."\n"
+		else
+			crumbs_html3d = crumbs_html3d.."\n"
+		end
+		crumbs_html3d = crumbs_html3d.."\n"
 	end
 	
 	if crumbs_generate_svg then
@@ -173,7 +183,6 @@ function circle(radius, counterclockwise)
 	if crumbs_generate_hpgl then
 		crumbs_hpgl = crumbs_hpgl.."CI"..(radius*hpgl_scale)..";"
 	end
-	
 end
 
 --- Pause the drawing in seconds
@@ -193,7 +202,7 @@ end
 
 --- Generates a html-5 preview file.
 -- The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code.
--- Notice: The frameworl only draws a line on canvas, of the z-position is equal to the pencilDown-position. If you use i.e. moveTo-commands, be sure to call pencilDown() beforehand, otherwise there will be no drawn path.
+-- Notice: The framework only draws a line on canvas, of the z-position is equal to the pencilDown-position. If you use i.e. moveTo-commands, be sure to call pencilDown() beforehand, otherwise there will be no drawn path.
 -- @params flag: true or false
 -- @params zoom_factor: (optional) scale the output with this zoom-factor. Default: 1
 -- @params line_width: (optional) Set the line-width of the drawn-path.
@@ -229,6 +238,75 @@ local function doGenerateHTML()
 	file:write("</body>\n")
 	file:write("</html>\n")
 	print("Writing of "..output_file.." complete.\n")	
+end
+
+--- Generates a html-3d preview file for webGL enabled browser. Try latest Firefox or Chromium.
+-- Open the html-file in Firefox or Chromium.
+-- @params flag: true or false
+function generateHTML3D(flag)
+	crumbs_generate_html3d = flag
+end
+
+local function doGenerateHTML3D()
+	print("\nStarting to write html3D-file.")
+	output_file = crumbs_projectname.."-3d.html"
+	file = io.open(output_file, "w+")
+	print("Opened file: "..output_file)	
+		
+	file:write("<html>\n")
+	file:write("<head>\n")
+	file:write("<title>"..output_file.." - Made with LuaCrumbs - nodepond.com</title>\n")
+	file:write("</head>\n")
+	file:write("<body>\n")
+	--file:write("<canvas id=\"c\" width=\""..(outerx+html_linewidth+1)*html_zoom.."\" height=\""..(outery+html_linewidth+1)*html_zoom.."\"></canvas>\n")
+	file:write("<script src=\"./3rdparty/processing-1.3.6.min.js\"></script>\n")
+	file:write("<canvas data-processing-sources=\""..crumbs_projectname..".pde\"></canvas>\n")
+	file:write(crumbs_html3d)
+	file:write("</body>\n")
+	file:write("</html>\n")
+	print("Writing of "..output_file.." complete.\n")	
+	
+	print("\nStarting to write processingjs-file.")
+	output_file = crumbs_projectname..".pde"
+	file = io.open(output_file, "w+")
+	print("Opened file: "..output_file)	
+	
+	file:write("float incx;\n")
+	file:write("float incz;\n")
+	file:write("void setup() {\n")
+	file:write("	size(640, 360, OPENGL);\n")
+	file:write("	fill(184, 235, 184);\n")
+	file:write("	incx = 0.;\n")
+	file:write("	incz = 0.;\n")
+	file:write("}\n")
+	file:write("\n")
+	file:write("void draw() {\n")
+	file:write("	lights();\n")
+	file:write("	background(255);\n")
+	file:write("	// Change height of the camera with mouseY\n")
+	file:write("	camera(30.0, mouseY, 220.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);\n")
+	file:write("	rotateX((PI*2)*incx);\n")
+	file:write("	rotateZ((PI*2)*incz);\n")
+	file:write("	\n")
+	file:write("	incx += 0.003;\n")
+	file:write("	if (incz >= 1.0) {\n")
+	file:write("		incz = 0.;\n")
+	file:write("	}\n")
+	file:write("	incz += 0.01;\n")
+	file:write("	if (incz >= 1.0) {\n")
+	file:write("		incz = 0.;\n")
+	file:write("	}\n")
+	file:write("	noStroke();\n")
+	file:write("	// box(90);\n")
+	file:write("	stroke(100);\n")
+	file:write("	line(-100, 0, 0, 100, 0, 0);\n")
+	file:write("	line(0, -100, 0, 0, 100, 0);\n")
+	file:write("	line(0, 0, -100, 0, 0, 100);\n")
+	file:write("	stroke(0);\n")
+	file:write("	line(50, 0, -100, 0, 50, 100);\n") -- insert custom code here!!
+	file:write("}\n")
+	
+	print("Writing of "..output_file.." complete.\n")
 end
 
 --- Should LuaCrumbs generate a ngc-file (G-Code). The default is yes, since it is intended to use LuaCrumbs with G-Code!
@@ -302,6 +380,10 @@ function close()
 		
 	if crumbs_generate_html then
 		doGenerateHTML()
+	end
+	
+	if crumbs_generate_html3d then
+		doGenerateHTML3D()
 	end
 	
 	if crumbs_generate_svg then

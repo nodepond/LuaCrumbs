@@ -5,8 +5,9 @@ require("luacrumbs")
 
 luacrumbs.generateSVG(true)
 luacrumbs.generateHPGL(true)
+luacrumbs.generateHTML3D(true)
 
-luacrumbs.init("test", true)
+luacrumbs.init("test")
 
 -- jump straight into the fun!
 luacrumbs.line(0, 0, 100, 100)
