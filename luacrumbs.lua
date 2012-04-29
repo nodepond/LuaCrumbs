@@ -122,7 +122,12 @@ function moveTo(xpos, ypos, zpos)
 		if zpos == nil then
 			zpos = curz
 		end
-		crumbs_pde3d = crumbs_pde3d.."line("..curx..", "..cury..", "..curz..", "..xpos..", "..ypos..", "..zpos..");\n"
+		-- don't draw redundant lines
+		if xpos == curx and ypos == cury and zpos == curz then
+			-- do nothing
+		else
+			crumbs_pde3d = crumbs_pde3d.."line("..curx..", "..cury..", "..curz..", "..xpos..", "..ypos..", "..zpos..");\n"
+		end
 	end
 	
 	-- update the current position
@@ -299,10 +304,13 @@ local function doGenerateHTML3D()
 	file:write("}\n")
 	file:write("\n")
 	file:write("void draw() {\n")
-	file:write("	noLights();\n")
-	file:write("	background(255);\n")
+	file:write("	lights();\n")
+	file:write("	if (alternateColors) {\n")
+	file:write("		background(120);\n")
+	file:write("	} else {\n")
+	file:write("		background(255);\n")
+	file:write("	}\n")
 	file:write("	camera(0.0, middlez, 220.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);\n")
-	
 	file:write("	if (mousePressed) {\n")
 	file:write("	// do nothing\n")
 	file:write("	} else {\n")
@@ -324,14 +332,29 @@ local function doGenerateHTML3D()
 	file:write("			incy = 0.;\n")
 	file:write("		}\n")
 	file:write("	}\n")
-	file:write("	// noStroke();\n")
-	file:write("	// box(90);\n")
-	file:write("	stroke(40, 120, 40);\n")
+	file:write("	if (alternateColors) {\n")
+	file:write("		stroke(120, 0, 0);\n")
+	file:write("	} else {\n")
+	file:write("		stroke(40, 120, 40);\n")
+	file:write("	}\n")
 	file:write("	line(-100, 0, 0, 100, 0, 0);\n")
 	file:write("	line(0, -100, 0, 0, 100, 0);\n")
 	file:write("	line(0, 0, -100, 0, 0, 100);\n")
-	file:write("	stroke(0);\n")
+	file:write("	if (alternateColors) {\n")
+	file:write("		stroke(0);\n")
+	file:write("	} else {\n")
+	file:write("		stroke(0);\n")
+	file:write("	}\n")
 	file:write(crumbs_pde3d) -- insert the custom code
+	file:write("	noStroke();\n")
+	file:write("	if (alternateColors) {\n")
+	file:write("		fill(180, 180, 180, 120);\n")
+	file:write("	} else {\n")
+	file:write("		fill(120, 120, 120, 180);\n")
+	file:write("	}\n")
+	file:write("	translate(0,0,-50);\n")
+	file:write("	box(200,200,100);\n")
+	file:write("	translate(0,0,50);\n")
 	file:write("}\n")
 	file:write("void mouseDragged() {\n")
 	file:write("	middlex += mouseX - pmouseX;\n")
@@ -349,6 +372,13 @@ local function doGenerateHTML3D()
 	file:write("			isRotating = false;\n")
 	file:write("		} else {\n")
 	file:write("			isRotating = true;\n")
+	file:write("		}\n")
+	file:write("	}\n")
+	file:write("	if (key == 'c' || key == 'C') {\n")
+	file:write("		if (alternateColors) {\n")
+	file:write("			alternateColors = false;\n")
+	file:write("		} else {\n")
+	file:write("			alternateColors = true;\n")
 	file:write("		}\n")
 	file:write("	}\n")
 	file:write("}\n")
@@ -453,6 +483,10 @@ crumbs_pencildownpos = 0
 -- @params zpos (number) pencil up position
 function setPencilUpPosition(zpos)
 	crumbs_penciluppos = zpos
+	-- avoid, that pencilUp is below the pencilDown position
+	if crumbs_penciluppos <= crumbs_pencildownpos then
+		crumbs_penciluppos = crumbs_pencildownpos
+	end
 end
 
 --- Setter of the pencil down position
@@ -460,6 +494,10 @@ end
 -- @params zpos (number) pencil down position
 function setPencilDownPosition(zpos)
 	crumbs_pencildownpos = zpos
+	-- avoid, that pencilDown is above the pencilUp position
+	if crumbs_pencildownpos >= crumbs_penciluppos then
+		crumbs_pencildownpos = crumbs_penciluppos
+	end
 end
 
 --- Getter of the pencil up position
