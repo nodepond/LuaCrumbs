@@ -109,6 +109,11 @@
 	</tr>
 
 	<tr>
+	<td class="name" nowrap><a href="#generateHTML3D">generateHTML3D</a>&nbsp;(flag)</td>
+	<td class="summary">Generates a html-3d preview file for webGL enabled browser.</td>
+	</tr>
+
+	<tr>
 	<td class="name" nowrap><a href="#generateSVG">generateSVG</a>&nbsp;(flag)</td>
 	<td class="summary">Should LuaCrumbs generate a svg-file.</td>
 	</tr>
@@ -421,7 +426,7 @@ Should LuaCrumbs generate a hpgl-file (HPGL). The default is no.
 
 <dt><a name="generateHTML"></a><strong>generateHTML</strong>&nbsp;(flag, zoom_factor, line_width)</dt>
 <dd>
-Generates a html-5 preview file. The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code. Notice: The frameworl only draws a line on canvas, of the z-position is equal to the pencilDown-position. If you use i.e. moveTo-commands, be sure to call pencilDown() beforehand, otherwise there will be no drawn path.
+Generates a html-5 preview file. The generated file can be opened in any html5-canvas ready browser, to preview the output if the g-code. Notice: The framework only draws a line on canvas, of the z-position is equal to the pencilDown-position. If you use i.e. moveTo-commands, be sure to call pencilDown() beforehand, otherwise there will be no drawn path.
 
 
 <h3>Parameters</h3>
@@ -437,6 +442,32 @@ Generates a html-5 preview file. The generated file can be opened in any html5-c
 	
 	<li>
 	  line_width: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="generateHTML3D"></a><strong>generateHTML3D</strong>&nbsp;(flag)</dt>
+<dd>
+Generates a html-3d preview file for webGL enabled browser. Try latest Firefox or Chromium. Open the html-file in Firefox or Chromium.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  flag: 
 	</li>
 	
 </ul>
