@@ -5,8 +5,10 @@ require("luacrumbs")
 
 luacrumbs.generateGCode(false)
 luacrumbs.generateHTML(true)
+luacrumbs.generateHTML3D(true)
 luacrumbs.generateSVG(false)
 luacrumbs.generateHPGL(true)
+
 
 luacrumbs.init("turtle")
 
