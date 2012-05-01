@@ -16,6 +16,14 @@ void setup() {
 	size(800, 600, OPENGL);
 	fill(184, 235, 184);
 }
+void drawCircle(float _x, float _y, float _radius, float _z) {
+_radius = _radius / 2;
+noFill();
+bezier(0 + _x, _radius/2 + _y, _z, 0 + _x, _radius/2 +_y, _z, 0+_x, 0+_y, _z, _radius/2+_x, 0+_y, _z);
+bezier(_radius/2 + _x, 0 + _y, _z, _radius/2 + _x, 0 + _y, _z, _radius + _x, 0 + _y, _z, _radius + _x, _radius/2 + _y, _z);
+bezier(_radius + _x, _radius/2 + _y, _z, _radius + _x, _radius/2 + _y, _z, _radius + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z);
+bezier(_radius/2 + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z, 0 + _x, _radius + _y, _z, 0 + _x, _radius/2 + _y, _z);
+}
 
 void draw() {
 	lights();
@@ -240,6 +248,10 @@ line(-42.924285497827, -17.787278690044, 0, -40.052134350182, -23.055176542612, 
 line(-40.052134350182, -23.055176542612, 0, -34.454413141229, -25.215157391331, 0);
 line(-34.454413141229, -25.215157391331, 0, -28.823455004672, -23.14336819734, 0);
 line(-28.823455004672, -23.14336819734, 0, -26.052963325263, -17.82130319827, 0);
+line(-26.052963325263, -17.82130319827, 0, 0, 0, 0);
+drawCircle(0, 0, 50, 0);
+line(0, 0, 0, 0, 0, 5);
+drawCircle(0, 0, 40, 5);
 	noStroke();
 	if (alternateColors) {
 		fill(180, 180, 180, 120);

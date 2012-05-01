@@ -25,4 +25,9 @@ drawCircle(15, 15, 8, 0.1)
 drawCircle(30, 30, 2, 0.3)
 drawCircle(-45, 30, 6, 3.3)
 
+luacrumbs.circleAt(0,0,50)
+luacrumbs.setPencilDownPosition(5)
+luacrumbs.pencilDown()
+luacrumbs.circleAt(0,0,40)
+
 luacrumbs.close()

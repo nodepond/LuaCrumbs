@@ -185,13 +185,7 @@ function circle(radius, counterclockwise)
 	end
 	
 	if crumbs_generate_html3d then
-		crumbs_html3d = crumbs_html3d.."\n" -- Do Processing
-		if counterclockwise then 
-			crumbs_html3d = crumbs_html3d.."\n"
-		else
-			crumbs_html3d = crumbs_html3d.."\n"
-		end
-		crumbs_html3d = crumbs_html3d.."\n"
+		crumbs_pde3d = crumbs_pde3d.."drawCircle("..curx..", "..cury..", "..radius..", "..curz..");\n"
 	end
 	
 	if crumbs_generate_svg then
@@ -317,6 +311,15 @@ local function doGenerateHTML3D()
 	file:write("void setup() {\n")
 	file:write("	size(800, 600, OPENGL);\n")
 	file:write("	fill(184, 235, 184);\n")
+	file:write("}\n")
+	
+	file:write("void drawCircle(float _x, float _y, float _radius, float _z) {\n")
+	file:write("_radius = _radius / 2;\n")
+	file:write("noFill();\n")
+	file:write("bezier(0 + _x, _radius/2 + _y, _z, 0 + _x, _radius/2 +_y, _z, 0+_x, 0+_y, _z, _radius/2+_x, 0+_y, _z);\n")
+	file:write("bezier(_radius/2 + _x, 0 + _y, _z, _radius/2 + _x, 0 + _y, _z, _radius + _x, 0 + _y, _z, _radius + _x, _radius/2 + _y, _z);\n")
+	file:write("bezier(_radius + _x, _radius/2 + _y, _z, _radius + _x, _radius/2 + _y, _z, _radius + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z);\n")
+	file:write("bezier(_radius/2 + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z, 0 + _x, _radius + _y, _z, 0 + _x, _radius/2 + _y, _z);\n")
 	file:write("}\n")
 	file:write("\n")
 	file:write("void draw() {\n")
