@@ -259,6 +259,164 @@ function generateHTML3D(flag)
 	crumbs_generate_html3d = flag
 end
 
+function returnPDEHeader()
+	local header = ""
+	header = header.."boolean isRotating = false;\n"
+	header = header.."boolean isRotatingX = false;\n"
+	header = header.."boolean isRotatingY = false;\n"
+	header = header.."boolean isRotatingZ = true;\n"
+	header = header.."boolean alternateColors = false;\n"
+	header = header.."float incx = 0.;\n"
+	header = header.."float incy = 0.;\n"
+	header = header.."float incz = 0.;\n"
+	header = header.."float middlex;\n"
+	header = header.."float middley;\n"
+	header = header.."float middlez;\n"
+	header = header.."float rotX = 0.;\n"
+	header = header.."float rotY = 0.;\n"
+	header = header.."float rotZ = 0.;\n"
+	header = header.."void setup() {\n"
+	header = header.."	size(800, 600, OPENGL);\n"
+	header = header.."	fill(184, 235, 184);\n"
+	header = header.."}\n"
+	
+	header = header.."void drawCircle(float _x, float _y, float _radius, float _z) {\n"
+	header = header.."_radius = _radius / 2;\n"
+	header = header.."noFill();\n"
+	header = header.."bezier(0 + _x, _radius/2 + _y, _z, 0 + _x, _radius/2 +_y, _z, 0+_x, 0+_y, _z, _radius/2+_x, 0+_y, _z);\n"
+	header = header.."bezier(_radius/2 + _x, 0 + _y, _z, _radius/2 + _x, 0 + _y, _z, _radius + _x, 0 + _y, _z, _radius + _x, _radius/2 + _y, _z);\n"
+	header = header.."bezier(_radius + _x, _radius/2 + _y, _z, _radius + _x, _radius/2 + _y, _z, _radius + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z);\n"
+	header = header.."bezier(_radius/2 + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z, 0 + _x, _radius + _y, _z, 0 + _x, _radius/2 + _y, _z);\n"
+	header = header.."}\n"
+	header = header.."\n"
+	header = header.."void draw() {\n"
+	header = header.."	lights();\n"
+	header = header.."	if (alternateColors) {\n"
+	header = header.."		background(120);\n"
+	header = header.."	} else {\n"
+	header = header.."		background(255);\n"
+	header = header.."	}\n"
+	header = header.."	camera(0.0, middlez, 220.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);\n"
+	header = header.."	if (mousePressed) {\n"
+	header = header.."	// do nothing\n"
+	header = header.."	} else {\n"
+	header = header.."	rotY = (PI*2)*((mouseX/(float)width)+incx);\n"
+	header = header.."	rotX = (PI*2)*((mouseY/(float)height)+incy);\n"
+	header = header.."	rotZ = (PI*2)*incz;\n"
+	header = header.."	}\n"
+	header = header.."	translate(middlex, middley, 0.);\n"
+	header = header.."	rotateX(rotX);\n"
+	header = header.."	rotateY(rotY);\n"
+	header = header.."	rotateZ(rotZ);\n"
+	header = header.."	translate(-middlex, -middley, -0.);\n"
+	header = header.."	\n"
+	header = header.."	if (isRotating) {\n"
+	header = header.."	if (isRotatingX) { incx += 0.0003; };\n"
+	header = header.."		if (incx >= 1.0) {\n"
+	header = header.."			incx = 0.;\n"
+	header = header.."		}\n"
+	header = header.."	if (isRotatingY) { incy += 0.0001; };\n"
+	header = header.."		if (incy >= 1.0) {\n"
+	header = header.."			incy = 0.;\n"
+	header = header.."		}\n"
+	header = header.."	if (isRotatingZ) { incz += 0.00045; };\n"
+	header = header.."		if (incz >= 1.0) {\n"
+	header = header.."			incz = 0.;\n"
+	header = header.."		}\n"
+	header = header.."	}\n"
+	header = header.."	if (alternateColors) {\n"
+	header = header.."		stroke(120, 0, 0);\n"
+	header = header.."	} else {\n"
+	header = header.."		stroke(40, 120, 40);\n"
+	header = header.."	}\n"
+	header = header.."	line(-50, 0, 0, 50, 0, 0);\n"
+	header = header.."	line(0, -50, 0, 0, 50, 0);\n"
+	header = header.."	line(0, 0, -50, 0, 0, 50);\n"
+	header = header.."	if (alternateColors) {\n"
+	header = header.."		stroke(0);\n"
+	header = header.."	} else {\n"
+	header = header.."		stroke(0);\n"
+	header = header.."	}\n"
+	return header
+end
+
+function returnPDEFooter()
+	local footer = ""
+	footer = footer.."	noStroke();\n"
+	footer = footer.."	if (alternateColors) {\n"
+	footer = footer.."		fill(180, 180, 180, 120);\n"
+	footer = footer.."	} else {\n"
+	footer = footer.."		fill(120, 120, 120, 180);\n"
+	footer = footer.."	}\n"
+	footer = footer.."	translate(0,0,-50);\n"
+	footer = footer.."	box(200,200,100);\n"
+	footer = footer.."	translate(0,0,50);\n"
+	footer = footer.."}\n"
+	footer = footer.."void mouseDragged() {\n"
+	footer = footer.."	middlex += mouseX - pmouseX;\n"
+	footer = footer.."	middley += mouseY - pmouseY;\n"
+	footer = footer.."}\n"
+	footer = footer.."void keyPressed() {\n"
+	footer = footer.."	if (keyCode == UP) {\n"
+	footer = footer.."		middlez += 15.0;\n"
+	footer = footer.."	}\n"
+	footer = footer.."	if (keyCode == DOWN) {\n"
+	footer = footer.."		middlez -= 15.0;\n"
+	footer = footer.."	}\n"
+	footer = footer.."	if (key == 'r' || key == 'R') {\n"
+	footer = footer.."		if (isRotating) {\n"
+	footer = footer.."			isRotating = false;\n"
+	footer = footer.."		} else {\n"
+	footer = footer.."			isRotating = true;\n"
+	footer = footer.."			if (!isRotatingX && !isRotatingY && !isRotatingZ) { isRotatingZ = true; }\n"
+	footer = footer.."		}\n"
+	footer = footer.."	}\n"
+	footer = footer.."	if (key == 'c' || key == 'C') {\n"
+	footer = footer.."		if (alternateColors) {\n"
+	footer = footer.."			alternateColors = false;\n"
+	footer = footer.."		} else {\n"
+	footer = footer.."			alternateColors = true;\n"
+	footer = footer.."		}\n"
+	footer = footer.."	}\n"
+	footer = footer.."	if (key == 'x' || key == 'X') {\n"
+	footer = footer.."		if (isRotatingX) {\n"
+	footer = footer.."			isRotatingX = false;\n"
+	footer = footer.."		} else {\n"
+	footer = footer.."			isRotatingX = true;\n"
+	footer = footer.."		}\n"
+	footer = footer.."	}\n"
+	footer = footer.."	if (key == 'y' || key == 'Y') {\n"
+	footer = footer.."		if (isRotatingY) {\n"
+	footer = footer.."			isRotatingY = false;\n"
+	footer = footer.."		} else {\n"
+	footer = footer.."			isRotatingY = true;\n"
+	footer = footer.."		}\n"
+	footer = footer.."	}\n"
+	footer = footer.."	if (key == 'z' || key == 'Z') {\n"
+	footer = footer.."		if (isRotatingZ) {\n"
+	footer = footer.."			isRotatingZ = false;\n"
+	footer = footer.."		} else {\n"
+	footer = footer.."			isRotatingZ = true;\n"
+	footer = footer.."		}\n"
+	footer = footer.."	}\n"
+	footer = footer.."}\n"
+	return footer
+end
+
+local function doGeneratePDE()
+	print("\nStarting to write processingjs-file.")
+	output_file = crumbs_projectname..".pde"
+	file = io.open(output_file, "w+")
+	print("Opened file: "..output_file)	
+	
+	file:write(returnPDEHeader())
+	file:write(crumbs_pde3d) -- insert the custom code
+	file:write(returnPDEFooter())
+	
+	print("Writing of "..output_file.." complete.\n")
+end
+
+
 function returnHTML3DHeader()
 	local header = ""
 	header = header.."<html>\n"
@@ -300,150 +458,9 @@ local function doGenerateHTML3D()
 	file:write(returnHTML3DFooter())
 
 	print("Writing of "..output_file.." complete.\n")	
-	
-	print("\nStarting to write processingjs-file.")
-	output_file = crumbs_projectname..".pde"
-	file = io.open(output_file, "w+")
-	print("Opened file: "..output_file)	
-	
-	file:write("boolean isRotating = false;\n")
-	file:write("boolean isRotatingX = false;\n")
-	file:write("boolean isRotatingY = false;\n")
-	file:write("boolean isRotatingZ = true;\n")
-	file:write("boolean alternateColors = false;\n")
-	file:write("float incx = 0.;\n")
-	file:write("float incy = 0.;\n")
-	file:write("float incz = 0.;\n")
-	file:write("float middlex;\n")
-	file:write("float middley;\n")
-	file:write("float middlez;\n")
-	file:write("float rotX = 0.;\n")
-	file:write("float rotY = 0.;\n")
-	file:write("float rotZ = 0.;\n")
-	file:write("void setup() {\n")
-	file:write("	size(800, 600, OPENGL);\n")
-	file:write("	fill(184, 235, 184);\n")
-	file:write("}\n")
-	
-	file:write("void drawCircle(float _x, float _y, float _radius, float _z) {\n")
-	file:write("_radius = _radius / 2;\n")
-	file:write("noFill();\n")
-	file:write("bezier(0 + _x, _radius/2 + _y, _z, 0 + _x, _radius/2 +_y, _z, 0+_x, 0+_y, _z, _radius/2+_x, 0+_y, _z);\n")
-	file:write("bezier(_radius/2 + _x, 0 + _y, _z, _radius/2 + _x, 0 + _y, _z, _radius + _x, 0 + _y, _z, _radius + _x, _radius/2 + _y, _z);\n")
-	file:write("bezier(_radius + _x, _radius/2 + _y, _z, _radius + _x, _radius/2 + _y, _z, _radius + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z);\n")
-	file:write("bezier(_radius/2 + _x, _radius + _y, _z, _radius/2 + _x, _radius + _y, _z, 0 + _x, _radius + _y, _z, 0 + _x, _radius/2 + _y, _z);\n")
-	file:write("}\n")
-	file:write("\n")
-	file:write("void draw() {\n")
-	file:write("	lights();\n")
-	file:write("	if (alternateColors) {\n")
-	file:write("		background(120);\n")
-	file:write("	} else {\n")
-	file:write("		background(255);\n")
-	file:write("	}\n")
-	file:write("	camera(0.0, middlez, 220.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);\n")
-	file:write("	if (mousePressed) {\n")
-	file:write("	// do nothing\n")
-	file:write("	} else {\n")
-	file:write("	rotY = (PI*2)*((mouseX/(float)width)+incx);\n")
-	file:write("	rotX = (PI*2)*((mouseY/(float)height)+incy);\n")
-	file:write("	rotZ = (PI*2)*incz;\n")
-	file:write("	}\n")
-	file:write("	translate(middlex, middley, 0.);\n")
-	file:write("	rotateX(rotX);\n")
-	file:write("	rotateY(rotY);\n")
-	file:write("	rotateZ(rotZ);\n")
-	file:write("	translate(-middlex, -middley, -0.);\n")
-	file:write("	\n")
-	file:write("	if (isRotating) {\n")
-	file:write("	if (isRotatingX) { incx += 0.0003; };\n")
-	file:write("		if (incx >= 1.0) {\n")
-	file:write("			incx = 0.;\n")
-	file:write("		}\n")
-	file:write("	if (isRotatingY) { incy += 0.0001; };\n")
-	file:write("		if (incy >= 1.0) {\n")
-	file:write("			incy = 0.;\n")
-	file:write("		}\n")
-	file:write("	if (isRotatingZ) { incz += 0.00045; };\n")
-	file:write("		if (incz >= 1.0) {\n")
-	file:write("			incz = 0.;\n")
-	file:write("		}\n")
-	file:write("	}\n")
-	file:write("	if (alternateColors) {\n")
-	file:write("		stroke(120, 0, 0);\n")
-	file:write("	} else {\n")
-	file:write("		stroke(40, 120, 40);\n")
-	file:write("	}\n")
-	file:write("	line(-50, 0, 0, 50, 0, 0);\n")
-	file:write("	line(0, -50, 0, 0, 50, 0);\n")
-	file:write("	line(0, 0, -50, 0, 0, 50);\n")
-	file:write("	if (alternateColors) {\n")
-	file:write("		stroke(0);\n")
-	file:write("	} else {\n")
-	file:write("		stroke(0);\n")
-	file:write("	}\n")
-	file:write(crumbs_pde3d) -- insert the custom code
-	file:write("	noStroke();\n")
-	file:write("	if (alternateColors) {\n")
-	file:write("		fill(180, 180, 180, 120);\n")
-	file:write("	} else {\n")
-	file:write("		fill(120, 120, 120, 180);\n")
-	file:write("	}\n")
-	file:write("	translate(0,0,-50);\n")
-	file:write("	box(200,200,100);\n")
-	file:write("	translate(0,0,50);\n")
-	file:write("}\n")
-	file:write("void mouseDragged() {\n")
-	file:write("	middlex += mouseX - pmouseX;\n")
-	file:write("	middley += mouseY - pmouseY;\n")
-	file:write("}\n")
-	file:write("void keyPressed() {\n")
-	file:write("	if (keyCode == UP) {\n")
-	file:write("		middlez += 15.0;\n")
-	file:write("	}\n")
-	file:write("	if (keyCode == DOWN) {\n")
-	file:write("		middlez -= 15.0;\n")
-	file:write("	}\n")
-	file:write("	if (key == 'r' || key == 'R') {\n")
-	file:write("		if (isRotating) {\n")
-	file:write("			isRotating = false;\n")
-	file:write("		} else {\n")
-	file:write("			isRotating = true;\n")
-	file:write("			if (!isRotatingX && !isRotatingY && !isRotatingZ) { isRotatingZ = true; }\n")
-	file:write("		}\n")
-	file:write("	}\n")
-	file:write("	if (key == 'c' || key == 'C') {\n")
-	file:write("		if (alternateColors) {\n")
-	file:write("			alternateColors = false;\n")
-	file:write("		} else {\n")
-	file:write("			alternateColors = true;\n")
-	file:write("		}\n")
-	file:write("	}\n")
-	file:write("	if (key == 'x' || key == 'X') {\n")
-	file:write("		if (isRotatingX) {\n")
-	file:write("			isRotatingX = false;\n")
-	file:write("		} else {\n")
-	file:write("			isRotatingX = true;\n")
-	file:write("		}\n")
-	file:write("	}\n")
-	file:write("	if (key == 'y' || key == 'Y') {\n")
-	file:write("		if (isRotatingY) {\n")
-	file:write("			isRotatingY = false;\n")
-	file:write("		} else {\n")
-	file:write("			isRotatingY = true;\n")
-	file:write("		}\n")
-	file:write("	}\n")
-	file:write("	if (key == 'z' || key == 'Z') {\n")
-	file:write("		if (isRotatingZ) {\n")
-	file:write("			isRotatingZ = false;\n")
-	file:write("		} else {\n")
-	file:write("			isRotatingZ = true;\n")
-	file:write("		}\n")
-	file:write("	}\n")
-	file:write("}\n")
-	
-	print("Writing of "..output_file.." complete.\n")
+	doGeneratePDE() -- generate .pde file for processingjs
 end
+
 
 --- Should LuaCrumbs generate a ngc-file (G-Code). The default is yes, since it is intended to use LuaCrumbs with G-Code!
 -- @params flag: true or false
