@@ -259,34 +259,46 @@ function generateHTML3D(flag)
 	crumbs_generate_html3d = flag
 end
 
+function returnHTML3DHeader()
+	local header = ""
+	header = header.."<html>\n"
+	header = header.."<head>\n"
+	header = header.."<title>"..crumbs_projectname.." - Made with LuaCrumbs - nodepond.com</title>\n"
+	header = header.."<style>body { font-family: helvetica, arial, sans-serif;\nfont-size: 11px;\nline-height: 18px; } a, a:hover, a:link, a:active { color:#339933; }</style>\n"
+	header = header.."</head>\n"
+	header = header.."<body>\n"
+	header = header.."<script src=\"./3rdparty/processing-1.3.6.min.js\"></script>\n"
+	header = header.."<div><canvas data-processing-sources=\""..crumbs_projectname..".pde\"></canvas></div>\n"
+	header = header.."<div>move mouse to rotate, drag mouse to move focus point<br />\n"
+	header = header.."<br />\n"
+	header = header.."r - toggle automatic rotation<br />\n"
+	header = header.."x, y, z - toggle autorotate x, y, z-axis<br />\n"
+	header = header.."c - alternate colorscheme<br />\n"
+	header = header.."<br />\n"
+	header = header.."generated with <a href=\"http://www.nodepond.com/luacrumbs\">LuaCrumbs</a> a project from <a href=\"http://www.nodepond.com\">Nodepond</a><br />\n"
+	header = header.."</div>\n"
+	
+	return header
+end
+
+function returnHTML3DFooter()
+	local footer = ""
+	footer = footer.."</body>\n"
+	footer = footer.."</html>\n"	
+	return footer
+end
+
+
 local function doGenerateHTML3D()
 	print("\nStarting to write html3D-file.")
 	output_file = crumbs_projectname.."-3d.html"
 	file = io.open(output_file, "w+")
 	print("Opened file: "..output_file)	
 		
-	file:write("<html>\n")
-	file:write("<head>\n")
-	file:write("<title>"..output_file.." - Made with LuaCrumbs - nodepond.com</title>\n")
-	
-	file:write("<style>body { font-family: helvetica, arial, sans-serif;\nfont-size: 11px;\nline-height: 18px; } a, a:hover, a:link, a:active { color:#339933; }</style>\n")
-	
-	file:write("</head>\n")
-	file:write("<body>\n")
-	--file:write("<canvas id=\"c\" width=\""..(outerx+html_linewidth+1)*html_zoom.."\" height=\""..(outery+html_linewidth+1)*html_zoom.."\"></canvas>\n")
-	file:write("<script src=\"./3rdparty/processing-1.3.6.min.js\"></script>\n")
-	file:write("<div><canvas data-processing-sources=\""..crumbs_projectname..".pde\"></canvas></div>\n")
-	file:write("<div>move mouse to rotate, drag mouse to move focus point<br />\n")
-	file:write("<br />\n")
-	file:write("r - toggle automatic rotation<br />\n")
-	file:write("x, y, z - toggle autorotate x, y, z-axis<br />\n")
-	file:write("c - alternate colorscheme<br />\n")
-	file:write("<br />\n")
-	file:write("generated with <a href=\"http://www.nodepond.com/luacrumbs\">LuaCrumbs</a> a project from <a href=\"http://www.nodepond.com\">Nodepond</a><br />\n")
-	file:write("</div>\n")
+	file:write(returnHTML3DHeader())
 	file:write(crumbs_html3d)
-	file:write("</body>\n")
-	file:write("</html>\n")
+	file:write(returnHTML3DFooter())
+
 	print("Writing of "..output_file.." complete.\n")	
 	
 	print("\nStarting to write processingjs-file.")
