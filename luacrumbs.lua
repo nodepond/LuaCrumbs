@@ -13,6 +13,8 @@
 
 module(..., package.seeall)
 
+require("Pde")
+
 -- Core (Really most basic functions)
 
 -- define some variables for config and control
@@ -68,8 +70,15 @@ function init(projectname)
 	
 	outerx = 0
 	outery = 0
+	
+	-- test class approach
+	pde = Pde.new(projectname)
+	pde:doDraw()
+	pde2 = Pde.new("TEST ME!")
+	pde2:doDraw()
 end
 
+-- TODO: dismiss this class and make stuff like that in the class-constructor if the single datatype-class
 function standardInit(verbose)
 	-- this is the standard init
 		
@@ -107,9 +116,9 @@ end
 -- @params zpos Move to absolute z-position. If nil, the z-value is unchanged
 function moveTo(xpos, ypos, zpos)
 	crumbs_gcode = crumbs_gcode.."G1"
-	if xpos ~= nil then crumbs_gcode = crumbs_gcode.." x"..xpos end
-	if ypos ~= nil then crumbs_gcode = crumbs_gcode.." y"..ypos end
-	if zpos ~= nil then crumbs_gcode = crumbs_gcode.." z"..zpos end
+	if xpos ~= nil then crumbs_gcode = crumbs_gcode.." x"..string.format("%.12f",xpos) end
+	if ypos ~= nil then crumbs_gcode = crumbs_gcode.." y"..string.format("%.12f",ypos) end
+	if zpos ~= nil then crumbs_gcode = crumbs_gcode.." z"..string.format("%.12f",zpos) end
 	crumbs_gcode = crumbs_gcode.."\n"
 	
 	if crumbs_generate_html3d then
@@ -126,7 +135,7 @@ function moveTo(xpos, ypos, zpos)
 		if xpos == curx and ypos == cury and zpos == curz then
 			-- do nothing
 		else
-			crumbs_pde3d = crumbs_pde3d.."line("..curx..", "..cury..", "..curz..", "..xpos..", "..ypos..", "..zpos..");\n"
+			crumbs_pde3d = crumbs_pde3d.."line("..string.format("%.12f",curx)..", "..string.format("%.12f",cury)..", "..string.format("%.12f",curz)..", "..string.format("%.12f",xpos)..", "..string.format("%.12f",ypos)..", "..string.format("%.12f",zpos)..");\n"
 		end
 	end
 	
@@ -150,12 +159,11 @@ function moveTo(xpos, ypos, zpos)
 	
 	if crumbs_generate_hpgl and zpos == nil and xpos ~= nil and ypos ~= nil then
 		if isPencilDown then
-			crumbs_hpgl = crumbs_hpgl.."PU"..(-xpos*hpgl_scale)..","..(ypos*hpgl_scale)..";"
+			crumbs_hpgl = crumbs_hpgl.."PU"..string.format("%f",(-xpos*hpgl_scale))..","..string.format("%f",(ypos*hpgl_scale))..";"
 		else
-			crumbs_hpgl = crumbs_hpgl.."PD"..(-xpos*hpgl_scale)..","..(ypos*hpgl_scale)..";"
+			crumbs_hpgl = crumbs_hpgl.."PD"..string.format("%f",(-xpos*hpgl_scale))..","..string.format("%f",(ypos*hpgl_scale))..";"
 		end		
 	end
-	
 end
 
 --- Draw circle, counterclockwise-parameter is optional
