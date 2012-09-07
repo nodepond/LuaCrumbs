@@ -13,7 +13,7 @@
 
 module(..., package.seeall)
 
-require("Pde")
+--require("Pde")
 
 -- Core (Really most basic functions)
 
@@ -71,11 +71,11 @@ function init(projectname)
 	outerx = 0
 	outery = 0
 	
-	-- test class approach
-	pde = Pde.new(projectname)
-	pde:doDraw()
-	pde2 = Pde.new("TEST ME!")
-	pde2:doDraw()
+	-- test class approach / EXPERIMENTAL
+	--pde = Pde.new(projectname)
+	--pde:doDraw()
+	--pde2 = Pde.new("TEST ME!")
+	--pde2:doDraw()
 end
 
 -- TODO: dismiss this class and make stuff like that in the class-constructor if the single datatype-class

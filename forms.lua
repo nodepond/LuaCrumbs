@@ -3,16 +3,16 @@
 
 require("luacrumbs")
 
-luacrumbs.generateGCode(false)
+luacrumbs.generateGCode(true)
 luacrumbs.generateSVG(true)
 
 luacrumbs.init("forms")
 
 luacrumbs.pencilUp()
-luacrumbs.moveTo(350,250)
+--luacrumbs.moveTo(350,250)
 
-luacrumbs.setRotation(0)
-luacrumbs.pencilDown()
+--luacrumbs.setRotation(0)
+--luacrumbs.pencilDown()
 	
 function make90DegreeCurve(_x, _y, _strokeLength, _rotation)
 	luacrumbs.moveTo(_x, _y)
@@ -72,37 +72,37 @@ end
 
 function drawRoundRect()
 	make90DegreeCurve(luacrumbs.getX(), luacrumbs.getY(), 2, 7)
-	luacrumbs.moveForward(200)
+	luacrumbs.moveForward(350)
 	make90DegreeCurve(luacrumbs.getX(), luacrumbs.getY(), 2, 7)
-	luacrumbs.moveForward(100)
+	luacrumbs.moveForward(250)
 	make90DegreeCurve(luacrumbs.getX(), luacrumbs.getY(), 2, 7)
-	luacrumbs.moveForward(200)
+	luacrumbs.moveForward(350)
 	make90DegreeCurve(luacrumbs.getX(), luacrumbs.getY(), 2, 7)
-	luacrumbs.moveForward(100)
+	luacrumbs.moveForward(250)
 end
 
-luacrumbs.moveTo(300, 250)
+luacrumbs.moveTo(0, 0)
 
 luacrumbs.pencilDown()
 luacrumbs.setRotation(90)
 
-local r = 62
+--local r = 62
 
 drawRoundRect()
-luacrumbs.addRotation(r)
-drawRoundRect()
-luacrumbs.addRotation(r)
-drawRoundRect()
-luacrumbs.addRotation(r)
-drawRoundRect()
-luacrumbs.addRotation(r)
-drawRoundRect()
-luacrumbs.addRotation(r)
-drawRoundRect()
-luacrumbs.addRotation(r)
+--luacrumbs.addRotation(r)
+--drawRoundRect()
+--luacrumbs.addRotation(r)
+--drawRoundRect()
+--luacrumbs.addRotation(r)
+--drawRoundRect()
+--luacrumbs.addRotation(r)
+--drawRoundRect()
+--luacrumbs.addRotation(r)
+--drawRoundRect()
+--luacrumbs.addRotation(r)
 
-rect(120, 80, 400, 300)
-circ(180, 150, 3, 4)
+--rect(120, 80, 400, 300)
+-- circ(180, 150, 3, 4)
 
 luacrumbs.pencilUp()
 luacrumbs.close()
