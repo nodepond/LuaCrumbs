@@ -13,6 +13,22 @@ luacrumbs.pencilUp()
 
 --luacrumbs.setRotation(0)
 --luacrumbs.pencilDown()
+
+function circleFromLines(_x, _y, _radius, _numberOfPoints)
+	if _numberOfPoints < 2 then _numberOfPoints = 2 end
+	if _numberOfPoints > 360 then _numberOfPoints = 360 end
+
+	-- make sure, that we work with integers
+	local numPoints = math.floor(_numberOfPoints)
+
+	luacrumbs.pencilUp()
+	luacrumbs.moveTo(math.sin(math.rad(0*360/numPoints))*_radius+_x, 
+					 math.cos(math.rad(0*360/numPoints))*_radius+_y)
+	for i=0, numPoints do
+		luacrumbs.lineTo(math.sin(math.rad(i*360/numPoints))*_radius+_x, 
+						 math.cos(math.rad(i*360/numPoints))*_radius+_y)
+	end
+end
 	
 function make90DegreeCurve(_x, _y, _strokeLength, _rotation)
 	luacrumbs.moveTo(_x, _y)
@@ -83,12 +99,20 @@ end
 
 luacrumbs.moveTo(0, 0)
 
-luacrumbs.pencilDown()
-luacrumbs.setRotation(90)
+--luacrumbs.pencilDown()
+--
+
+circleFromLines(25, 25, 10, 10)
+circleFromLines(50, 25, 18, 10)
+circleFromLines(50, 25, 18, 3)
+circleFromLines(150, 25, 18, 3000)
+
 
 --local r = 62
 
-drawRoundRect()
+--drawRoundRect()
+
+
 --luacrumbs.addRotation(r)
 --drawRoundRect()
 --luacrumbs.addRotation(r)
