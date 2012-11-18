@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
--- LuaCrumbs - pde (Processing) core implementation
--- http://luacrumbs.nodepond.com
+-- LuaCrumbs - Html3D template for loading ide core implementation
+-- http://luacrumbs.nodepond.com / http://www.luacrumbs.org
 --
 -- License: MIT/X
 -- 
@@ -25,14 +25,10 @@ function Html3D:init(_projectname)
 end
 
 function Html3D:inspect()
-	print("Html3D nothing to inspect")
+	print("Html3D: nothing to inspect")
 end
 
-function Html3D:moveTo(_x, _y)
-	-- nothing to do
-end
-
-function Html3D:moveToZ(_z)
+function Html3D:moveTo(_x, _y, _z, _pre_x, _pre_y, _pre_z)
 	-- nothing to do
 end
 
@@ -44,11 +40,11 @@ function Html3D:pause(_seconds)
 	-- nothing to do
 end
 
-function Html3D:pencilUp(_isPencilUpAlreadyUp)
+function Html3D:pencilUp(_isPencilUpAlreadyUp, _x, _y, _cur_z, _dest_z)
 	-- nothing to do
 end
 
-function Html3D:pencilDown(_isPencilUpAlreadyDown)
+function Html3D:pencilDown(_isPencilUpAlreadyDown, _x, _y, _cur_z, _dest_z)
 	-- nothing to do
 end
 
@@ -98,4 +94,4 @@ function Html3D:getFooter()
 	return self.footer
 end
 
-return Pde
+return Html3D

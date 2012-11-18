@@ -37,10 +37,6 @@ function Pde:moveTo(_x, _y, _z, _pre_x, _pre_y, _pre_z)
 
 end
 
---function Pde:moveToZ(_z)
---	print("Pde moveTo _z ".._z)
---end
-
 function Pde:setSpeed(_speed)
 	print("Pde setSpeed _speed ".._speed)
 end
