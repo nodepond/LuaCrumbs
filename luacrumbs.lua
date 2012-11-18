@@ -104,7 +104,7 @@ end
 -- Sets the pencil down position. 
 -- Pencil down-position can't be greater than pencil up. If pencil_down_pos > pencil_up_pos then pencil_down_pos = pencil_up_pos
 -- @params zpos (number) pencil down position
-function setPencilDownPosition(zpos)
+function setPencilDownPosition(_zpos)
 	pencil_down_pos = _zpos
 	-- avoid, that pencilDown is above the pencilUp position
 	if pencil_down_pos > pencil_up_pos then
