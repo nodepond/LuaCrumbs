@@ -1,24 +1,29 @@
------------------------------------------------------------------------------------------
--- LuaCrumbs.lua ALPHA
--- Scripting-framework for generating G-Code for CNC-machines.
--- Jump straight into the fun!
--- http://www.nodepond.com/luacrumbs
+-----------------------------------------------------------------------------
+-- LuaCrumbs.lua
+-- Scripting-libary for generating Code for FabLabs.
 --
--- License: MIT/X
+-- http://luacrumbs.nodepond.com / http://www.luacrumbs.org
+--
+-- License: MIT/X, http://opensource.org/licenses/MIT
 -- 
--- (c) 2011 - 2012 Nodepond / Martin Wisniowski (hello@nodepond.com)
+-- (c) 2011 / 2012 Nodepond.com / Martin Wisniowski (hello@nodepond.com)
+-- Permission is hereby granted, free of charge, to any person obtaining a copy 
+-- of this software and associated documentation files (the "Software"), to deal 
+-- in the Software without restriction, including without limitation the rights 
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+-- copies of the Software, and to permit persons to whom the Software is 
+-- furnished to do so, subject to the following conditions:
 --
--- Build with heavy support of the http://dingfabrik.de
+-- The above copyright notice and this permission notice shall be included 
+-- in all copies or substantial portions of the Software.
 --
------------------------------------------------------------------------------------------
---
--- NOTICE: This is still an early release, meant to look at and play around.
--- Lot's of documentation, approach, enhancements etc on the way!
---
--- USAGE:
--- To run a script, run i.e. 'lua test.lua' in the folder, where you unpacked the
--- downloaded files. This will generate a gcode-file with .ngc and a 
--- html5-preview with .ngc.html.
---
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+-- OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
+-- THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
+-- THE SOFTWARE.
+-----------------------------------------------------------------------------
 
-
+This is currently pre-BETA release. Still some minor work before getting beta. For questions and the rest go to the site http://www.luacrumbs.org and stubmle in the forum there. LuaCrumbs was initiated by M.Wisniowski. See my other projects at http://www.nodepond.com
