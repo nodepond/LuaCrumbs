@@ -26,6 +26,11 @@
 -- THE SOFTWARE.
 -----------------------------------------------------------------------------
 
+-- Notice on scales: We assume 100 scales to be 10cm (100 millieters) in reality.
+-- This is, that 1 scale is 1mm. With 100 scales equals 10cm you can work in a 
+-- "normalized" style, means: make your work in 100 scale-steps and in the and
+-- multiply it with a scale-multipliyer, i.e. scale*10 to haver the meter-domain.
+-- I.e. scale*25 then would scale 10cm to 2,5 meters. 
 
 module(..., package.seeall)
 
