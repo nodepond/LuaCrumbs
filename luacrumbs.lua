@@ -13,8 +13,6 @@
 
 module(..., package.seeall)
 
--- Core (Really most basic functions)
-
 local outputFormatTable = {}
 
 -- keep an overview!
@@ -84,7 +82,6 @@ end
 --	cur_z = _zpos
 --end
 
-
 --- Setter of the pencil up position
 -- Sets the pencil up position
 -- Pencil up-position can't be smaller than pencil up. If pencil_up_pos < pencil_up_pos then pencil_up_pos = pencil_down_pos
@@ -134,30 +131,22 @@ end
 -- Move the head up and down with pencilUp() and pencilDown()
 -- If the head is at the current pencilUp position, this command will normally do nothing.
 function pencilUp()
-
 	for key,outputFormat in pairs(outputFormatTable) do
 		outputFormat:pencilUp(isPencilUp(), cur_x, cur_y, cur_z, pencil_up_pos)
 	end
 
 	cur_z = pencil_up_pos
-
-	--if (isPencilUp()) then return end
-	--moveToZ(pencil_up_pos)
 end
 
 --- Moves the pencil to pencildown-position (z-axis)  
 -- Move the head up and down with pencilUp() and pencilDown()
 -- If the head is at the current pencilDown position, this command will normally do nothing.
 function pencilDown()
-
 	for key,outputFormat in pairs(outputFormatTable) do
 		outputFormat:pencilDown(isPencilDown(), cur_x, cur_y, cur_z, pencil_down_pos)
 	end
 
 	cur_z = pencil_down_pos
-
-	--if (isPencilDown()) then return end
-	--moveToZ(pencil_down_pos)
 end
 
 --- Draws a line from start X/Y-position to X/Y-destination position. 
@@ -249,9 +238,12 @@ end
 
 --- Same as moveForward, but in the other direction
 -- @param _steps Length of the step to move backwards
--- TODO: This function is currently not implemented!
 function moveBackward(_steps)
-	
+		-- subtract -90 degrees, in order to have the 0-rotation angle "point to up" 
+	local newposx = math.cos(math.rad(cur_rotation-90)) * _steps
+	local newposy = math.sin(math.rad(cur_rotation-90)) * _steps
+
+	moveTo(cur_x - newposx, cur_y - newposy)
 end
 
 
