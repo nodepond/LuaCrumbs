@@ -39,7 +39,7 @@ local outputFormatTable = {}
 -- keep an overview!
 local cur_x = 0
 local cur_y = 0
-local cur_z = 0 -- needed?
+local cur_z = 0
 local pencil_up_pos = 30
 local pencil_down_pos = 0
 local cur_rotation = 0
@@ -48,11 +48,6 @@ local cur_rotation = 0
 -- TODO: Bounds maybe later
 --local outerx = 0
 --local outery = 0
-
--- additional canvas / html5 parameters
--- TODO: Later and not here!!
---local html_zoom = 1
---local html_linewidth = 1
 
 --- Adds a format from OutputFormatClasses to the output files
 -- TODO: EXPLAIN THIS BETTER!
@@ -92,16 +87,6 @@ function moveTo(_xpos, _ypos)
 	cur_x = _xpos
 	cur_y = _ypos
 end
-
---- Move to absolute coordinate Z
--- @params _zpos Move to absolute z-position.
---function moveToZ(_zpos)
---	for key,outputFormat in pairs(outputFormatTable) do
---		outputFormat:moveToZ(_zpos)
---	end
-
---	cur_z = _zpos
---end
 
 --- Setter of the pencil up position
 -- Sets the pencil up position
@@ -266,95 +251,3 @@ function moveBackward(_steps)
 
 	moveTo(cur_x - newposx, cur_y - newposy)
 end
-
-
---- Draw a circle at a specified position 
--- @param xpos X-position of the circle-center.
--- @param ypos Y-position of the circle-center.
--- @param radius Radius of the circle.
--- @param counterclockwise (Optional) parameter. If true, the circle gets drawn counter-clockwise (not supported on all lanuages). The default value is nil (or false).
---function circleAt(xpos, ypos, radius, counterclockwise)	
-	-- HPGL-handling
---	if crumbs_generate_hpgl then
---		moveTo(xpos, ypos)
---		circle(radius, counterclockwise)
---	else
-	-- the other stuff (this could be a first sign of making a better architecture in the future, with serial-redering of files, not "parallel" file-processing)
---	  pencilUp()
---	  if crumbs_circlemode == 0 or generate_hpgl then
---	  	moveTo(xpos, ypos) 
---	  elseif crumbs_circlemode == 1 then
---		moveTo(xpos, ypos-(radius))
---	  end
---	  pencilDown()
---	  circle(radius, counterclockwise)	
---	end
---end
-
-
-
---- RepRap-related commands
--- Doc: http://reprap.org/wiki/Mendel_User_Manual:_RepRapGCodes
--- TODO: Handle special cases later!
---function setTemparatur()
---end
-
---function homeAllAxes()
---end
-
--- GCode-Commands
-
---- Insert whatever you want onto a G-Code file
--- Universal function to write something into the gcode file, i.e. custom commands like "M101"
---function insertIntoGCodeFile(string)
---	crumbs_gcode = crumbs_gcode..string.."\n"
---end
-
-
---- GCode: Use Path Tolerance Mode
--- @params flag - true or false. If true, path tolerance mode is selected. It inserts a "G64" command into the CGode-file
--- G64-Mode is much faster in moving the head, but to the cost of possible errors in drawing the path - means it can be not 100% accurate on the path.
--- If set to false, the GCode-command "G61" is inserted into the GCode-file. This switches the machine back to "exact path drawing" mode.
---function setGCodeUsePathTolanceMode(flag)
---	if (flag) then
---		crumbs_gcode = crumbs_gcode.."G64\n"
---	else
---		crumbs_gcode = crumbs_gcode.."G61\n"
---	end
---end
-
---- Set the speed-parameter in G-Code file
--- @params val Set the speed-parameter, if nil or 0, G0 for maximum speed is added to the G-Code
---function setGCodeSpeed(val)
---	if val == nil or val == 0 then
---		crumbs_gcode = crumbs_gcode.."G0\n"
---		return
---	end
---	if val > 0 then
---		crumbs_gcode = crumbs_gcode.."F"..val.."\n"
---	end
---end
-
-
--- HPGL-Commands
-
---- HPGL Set Pen Number
--- @params number. Default is 1
---function setHPGLPen(number)
---	if (number == nil) then
---		number = 1
---	end
---	if crumbs_generate_hpgl then
---		crumbs_hpgl = "SP"..number..";"
---	end
---end
-
---- HPGL Set Scalefactor
--- @params scale. Set a custom scale-factor. Default is 10. This feature is currently exerimental.
---function setHPGLScale(scale)
---	if (scale == nil) then
---		scale = 10
---	end
---	hpgl_scale = scale
---end
-
