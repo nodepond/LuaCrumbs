@@ -97,15 +97,15 @@ function drawRoundRect()
 	luacrumbs.moveForward(250)
 end
 
-luacrumbs.moveTo(0, 0)
+--luacrumbs.moveTo(0, 0)
 
 --luacrumbs.pencilDown()
 --
 
-circleFromLines(25, 25, 10, 10)
-circleFromLines(50, 25, 18, 10)
-circleFromLines(50, 25, 18, 3)
-circleFromLines(150, 25, 18, 3000)
+--circleFromLines(25, 25, 10, 10)
+--circleFromLines(50, 25, 18, 10)
+--circleFromLines(50, 25, 18, 3)
+--circleFromLines(150, 25, 18, 3000)
 
 
 --local r = 62
@@ -128,5 +128,5 @@ circleFromLines(150, 25, 18, 3000)
 --rect(120, 80, 400, 300)
 -- circ(180, 150, 3, 4)
 
-luacrumbs.pencilUp()
-luacrumbs.close()
+--luacrumbs.pencilUp()
+--luacrumbs.close()
