@@ -49,7 +49,7 @@ local cur_rotation = 0
 --local outerx = 0
 --local outery = 0
 
---- Adds a format from OutputFormatClasses to the output files
+--- Adds a format from CoreFormatClasses to the output files
 -- TODO: EXPLAIN THIS BETTER!
 -- @params _formatObject An object, derived from a class, that defines the output foo for each of the LuaCrums-core files 
 function addFormat(_formatObject)
