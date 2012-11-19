@@ -34,7 +34,7 @@
 
 module(..., package.seeall)
 
-local outputFormatTable = {}
+local coreFormatTable = {}
 
 -- keep an overview!
 local cur_x = 0
