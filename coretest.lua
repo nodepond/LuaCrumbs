@@ -1,12 +1,15 @@
 local lc = require ("luacrumbs")
 require("Pde")
 require("Html3D")
+require("Svg")
 
 local pde = Pde.new()
 local html3d = Html3D.new()
+local svg = Svg.new()
 
 lc.addFormat(pde)
 lc.addFormat(html3d)
+lc.addFormat(svg)
 --lc.addFormat(hpgl)
 lc.init("hello-core")
 

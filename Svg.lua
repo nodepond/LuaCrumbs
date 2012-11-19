@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------
--- LuaCrumbs - Svg-format core implementation
+-- LuaCrumbs - Svg-format coreFormat-implementation
 -- http://luacrumbs.nodepond.com / http://www.luacrumbs.org
 --
 -- License: MIT/X
