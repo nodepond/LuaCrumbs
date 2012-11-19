@@ -53,7 +53,7 @@ local cur_rotation = 0
 -- TODO: EXPLAIN THIS BETTER!
 -- @params _formatObject An object, derived from a class, that defines the output foo for each of the LuaCrums-core files 
 function addFormat(_formatObject)
-	table.insert(outputFormatTable, _formatObject)
+	table.insert(coreFormatTable, _formatObject)
 end
 
 --- Inits the project with the projectname
@@ -62,7 +62,7 @@ end
 function init(_projectname)
 	if _projectname == nil then _projectname = "cologne_at_night" end
 
-	for key,outputFormat in pairs(outputFormatTable) do
+	for key,outputFormat in pairs(coreFormatTable) do
 		outputFormat:init(_projectname)
 	end
 end
@@ -71,7 +71,7 @@ end
 -- Call this function at the end of your lua-script. It is a must, because ending-tags and diffrerent other parameters are written here.
 -- Without this closing statement, you will not get corrently generated files! (In fact, that are not generated at all)
 function close()	
-	for key,outputFormat in pairs(outputFormatTable) do
+	for key,outputFormat in pairs(coreFormatTable) do
 		outputFormat:close()
 	end
 end
@@ -80,7 +80,7 @@ end
 -- @params _xpos Move to absolute x-position.
 -- @params _ypos Move to absolute y-position.
 function moveTo(_xpos, _ypos)
-	for key,outputFormat in pairs(outputFormatTable) do
+	for key,outputFormat in pairs(coreFormatTable) do
 		outputFormat:moveTo(_xpos, _ypos, cur_z, cur_x, cur_y, cur_z)
 	end
 
@@ -137,7 +137,7 @@ end
 -- Move the head up and down with pencilUp() and pencilDown()
 -- If the head is at the current pencilUp position, this command will normally do nothing.
 function pencilUp()
-	for key,outputFormat in pairs(outputFormatTable) do
+	for key,outputFormat in pairs(coreFormatTable) do
 		outputFormat:pencilUp(isPencilUp(), cur_x, cur_y, cur_z, pencil_up_pos)
 	end
 
@@ -148,7 +148,7 @@ end
 -- Move the head up and down with pencilUp() and pencilDown()
 -- If the head is at the current pencilDown position, this command will normally do nothing.
 function pencilDown()
-	for key,outputFormat in pairs(outputFormatTable) do
+	for key,outputFormat in pairs(coreFormatTable) do
 		outputFormat:pencilDown(isPencilDown(), cur_x, cur_y, cur_z, pencil_down_pos)
 	end
 
@@ -181,7 +181,7 @@ end
 --- Pause the drawing in seconds
 -- @params seconds (number) seconds to pause. Parameter must be a positive number.
 function pause(_seconds)
-	for key,outputFormat in pairs(outputFormatTable) do
+	for key,outputFormat in pairs(coreFormatTable) do
 		outputFormat:pause(_seconds)
 	end
 end
@@ -189,7 +189,7 @@ end
 --- Pause the drawing in seconds
 -- @params seconds (number) seconds to pause. Parameter must be a positive number.
 function setSpeed(_speed)
-	for key,outputFormat in pairs(outputFormatTable) do
+	for key,outputFormat in pairs(coreFormatTable) do
 		outputFormat:setSpeed(_speed)
 	end
 end
