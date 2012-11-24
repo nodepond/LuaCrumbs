@@ -2,15 +2,22 @@ local lc = require ("luacrumbs")
 require("Pde")
 require("Html3D")
 require("Svg")
+require("GCode")
+require("Hpgl")
+
 
 local pde = Pde.new()
-local html3d = Html3D.new()
-local svg = Svg.new()
+--local html3d = Html3D.new()
+--local svg = Svg.new()
+--local gcode = GCode.new()
+--local hpgl = Hpgl.new()
 
 lc.addFormat(pde)
-lc.addFormat(html3d)
-lc.addFormat(svg)
---lc.addFormat(hpgl)
+lc.addFormat(Html3D.new())
+lc.addFormat(Svg.new())
+lc.addFormat(GCode.new())
+lc.addFormat(Hpgl.new())
+
 lc.init("hello-core")
 
 pde:inspect() -- print Pde-format-infos to console 
