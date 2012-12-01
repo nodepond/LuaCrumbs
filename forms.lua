@@ -18,3 +18,9 @@ function circleFromLines(_x, _y, _radius, _numberOfPoints)
 	end
 end
 
+function triangle(_x1, _y1, _x2, _y2, _x3, _y3)
+	luacrumbs.moveTo(_x1, _y1)
+	luacrumbs.moveTo(_x2, _y2)
+	luacrumbs.moveTo(_x3, _y3)
+	luacrumbs.moveTo(_x1, _y1)
+end
