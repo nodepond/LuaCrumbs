@@ -21,30 +21,38 @@ end
 
 function Hpgl:init(_projectname)
 	self.projectname = _projectname
+	self.body = ""
 end
 
 function Hpgl:inspect()
-	print("Hpgl: nothing to inspect")
+	print("Hpgl inspect - projectname "..self.projectname)
 end
 
 function Hpgl:moveTo(_x, _y, _z, _pre_x, _pre_y, _pre_z)
-	-- nothing to do
+	self.body = self.body.."PA".._x..",".._y..";"
 end
 
 function Hpgl:setSpeed(_speed)
-	-- nothing to do
+	print("TODO: Hpgl setSpeed _speed ".._speed)
 end
 
 function Hpgl:pause(_seconds)
-	-- nothing to do
 end
 
 function Hpgl:pencilUp(_isPencilUpAlreadyUp, _x, _y, _cur_z, _dest_z)
-	-- nothing to do
+	if (_isPencilUpAlreadyUp == 1) then
+		-- do nothing
+	else
+		self.body = self.body.."PU;"
+	end
 end
 
 function Hpgl:pencilDown(_isPencilUpAlreadyDown, _x, _y, _cur_z, _dest_z)
-	-- nothing to do
+	if (_isPencilUpAlreadyDown == 1) then
+		-- do nothing
+	else
+		self.body = self.body.."PD;"
+	end
 end
 
 function Hpgl:close()
@@ -67,7 +75,7 @@ function Hpgl:getHeader()
 	return self.header
 end
 function Hpgl:getBody()
-	self.body = "\n"
+	self.body = self.body.."\n"
 	return self.body
 end
 function Hpgl:getFooter()
