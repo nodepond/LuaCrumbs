@@ -1,4 +1,4 @@
--- Some higher level forms examples, 06. Apr 2012
+-- Some higher level forms, 06. Apr 2012
 -- @nodepond / @dingfabrik, m.wisniowski
 
 function circleFromLines(_x, _y, _radius, _numberOfPoints)

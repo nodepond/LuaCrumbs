@@ -44,6 +44,10 @@ local pencil_up_pos = 30
 local pencil_down_pos = 0
 local cur_rotation = 0
 
+function getVersion()
+	return 0.01
+end
+
 -- keep track of the x- and y maximum (needed .i.e. html-cavas-size)
 -- TODO: Bounds maybe later
 --local outerx = 0

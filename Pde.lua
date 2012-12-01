@@ -31,10 +31,9 @@ function Pde:inspect()
 end
 
 function Pde:moveTo(_x, _y, _z, _pre_x, _pre_y, _pre_z)
-	print("Pde moveTo _x ".._x.." _y".._y)
+	--print("Pde moveTo _x ".._x.." _y".._y)
 	self.body = self.body.."line("..string.format("%.12f",_pre_x)..", "..string.format("%.12f",_pre_y)..", "..string.format("%.12f",_pre_z)..", "..string.format("%.12f",_x)..", "..string.format("%.12f",_y)..", "..string.format("%.12f",_z)..");\n"	
 --	self.body = self.body.."line("..string.format("%.12f",_pre_x)..", "..string.format("%.12f",_pre_y)..", "..string.format("%.12f",curz)..", "..string.format("%.12f",xpos)..", "..string.format("%.12f",ypos)..", "..string.format("%.12f",zpos)..");\n"	
-
 end
 
 function Pde:setSpeed(_speed)

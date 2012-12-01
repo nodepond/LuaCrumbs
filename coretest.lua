@@ -5,6 +5,8 @@ require("Svg")
 require("GCode")
 require("Hpgl")
 
+print("LuaCrumbs Version: "..tostring(lc.getVersion()))
+
 
 local pde = Pde.new()
 --local html3d = Html3D.new()
@@ -18,7 +20,7 @@ lc.addFormat(Svg.new())
 lc.addFormat(GCode.new())
 lc.addFormat(Hpgl.new())
 
-lc.init("hello-core")
+lc.init("coretest")
 
 pde:inspect() -- print Pde-format-infos to console 
 
