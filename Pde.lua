@@ -31,21 +31,18 @@ function Pde:inspect()
 end
 
 function Pde:moveTo(_x, _y, _z, _pre_x, _pre_y, _pre_z)
-	--print("Pde moveTo _x ".._x.." _y".._y)
 	self.body = self.body.."line("..string.format("%.12f",_pre_x)..", "..string.format("%.12f",_pre_y)..", "..string.format("%.12f",_pre_z)..", "..string.format("%.12f",_x)..", "..string.format("%.12f",_y)..", "..string.format("%.12f",_z)..");\n"	
---	self.body = self.body.."line("..string.format("%.12f",_pre_x)..", "..string.format("%.12f",_pre_y)..", "..string.format("%.12f",curz)..", "..string.format("%.12f",xpos)..", "..string.format("%.12f",ypos)..", "..string.format("%.12f",zpos)..");\n"	
 end
 
 function Pde:setSpeed(_speed)
-	print("Pde setSpeed _speed ".._speed)
+--	print("Pde setSpeed _speed ".._speed)
 end
 
 function Pde:pause(_seconds)
-	print("Pde pause ".._seconds)
+--	print("Pde pause ".._seconds)
 end
 
 function Pde:pencilUp(_isPencilUpAlreadyUp, _x, _y, _cur_z, _dest_z)
-	print("Pde pencilUp "..tostring(_isPencilUpAlreadyUp))
 	if (_isPencilUpAlreadyUp == 1) then
 		-- do nothing
 	else
@@ -55,7 +52,6 @@ function Pde:pencilUp(_isPencilUpAlreadyUp, _x, _y, _cur_z, _dest_z)
 end
 
 function Pde:pencilDown(_isPencilUpAlreadyDown, _x, _y, _cur_z, _dest_z)
-	print("Pde pencilDown "..tostring(_isPencilUpAlreadyDown))
 	if (_isPencilUpAlreadyDown == 1) then
 		-- do nothing
 	else
