@@ -234,6 +234,10 @@ function getZ()
 	return cur_z
 end
 
+local function round(_num, _idp)
+  return tonumber(string.format("%." .. (_idp or 0) .. "f", _num))
+end
+
 --- Moves the "cursor" forward with the current-rotation angle be the specified value  
 -- @param _steps Length of the step to move forward
 function moveForward(_steps)
@@ -243,7 +247,7 @@ function moveForward(_steps)
 	local newposx = math.cos(math.rad(cur_rotation-90)) * _steps
 	local newposy = math.sin(math.rad(cur_rotation-90)) * _steps
 
-	moveTo(cur_x + newposx, cur_y + newposy)
+	moveTo(round(cur_x + newposx, 8), round(cur_y + newposy, 8))
 end
 
 --- Same as moveForward, but in the other direction
@@ -253,5 +257,5 @@ function moveBackward(_steps)
 	local newposx = math.cos(math.rad(cur_rotation-90)) * _steps
 	local newposy = math.sin(math.rad(cur_rotation-90)) * _steps
 
-	moveTo(cur_x - newposx, cur_y - newposy)
+	moveTo(round(cur_x - newposx, 8), round(cur_y - newposy, 8))
 end
