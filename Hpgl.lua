@@ -29,7 +29,7 @@ function Hpgl:inspect()
 end
 
 function Hpgl:moveTo(_x, _y, _z, _pre_x, _pre_y, _pre_z)
-	self.body = self.body.."PA".._x..",".._y..";"
+	self.body = self.body.."PA".._x*40..",".._y*40..";" -- The coordinate system is based on the smallest units one of the HP plotters could support, and was set to 25 µm (i.e. 40 units per millimeter, 1016 per inch).
 end
 
 function Hpgl:setSpeed(_speed)
