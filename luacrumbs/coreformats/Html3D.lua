@@ -70,7 +70,7 @@ function Html3D:getHeader()
 	self.header = self.header.."<style>body { font-family: helvetica, arial, sans-serif;\nfont-size: 11px;\nline-height: 18px; } a, a:hover, a:link, a:active { color:#339933; }</style>\n"
 	self.header = self.header.."</head>\n"
 	self.header = self.header.."<body>\n"
-	self.header = self.header.."<script src=\"./3rdparty/processing-1.3.6.min.js\"></script>\n"
+	self.header = self.header.."<script src=\"../../3rdparty/processing-1.3.6.min.js\"></script>\n"
 	self.header = self.header.."<div><canvas data-processing-sources=\""..self.projectname..".pde\"></canvas></div>\n"
 	self.header = self.header.."<div>move mouse to rotate, drag mouse to move focus point<br />\n"
 	self.header = self.header.."<br />\n"

@@ -1,6 +1,19 @@
-local lc = require ("luacrumbs")
-require("Pde")
-require("Html3D")
+package.path = package.path..";../../?.lua"
+
+local lc = require ("luacrumbs.luacrumbs")
+local f = require("luacrumbs.forms")
+
+require("luacrumbs.coreformats.Pde")
+require("luacrumbs.coreformats.Html3D")
+
+-- alternate declaring (which is nicer?):
+--package.path = package.path..";../../luacrumbs/?.lua"
+
+--local lc = require ("luacrumbs")
+--local f = require("forms")
+
+--require("coreformats.Pde")
+--require("coreformats.Html3D")
 
 --print("LuaCrumbs Version: "..tostring(lc.getVersion()))
 
