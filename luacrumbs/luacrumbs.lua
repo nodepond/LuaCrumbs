@@ -247,7 +247,7 @@ function moveForward(_steps)
 	local newposx = math.cos(math.rad(cur_rotation-90)) * _steps
 	local newposy = math.sin(math.rad(cur_rotation-90)) * _steps
 
-	moveTo(round(cur_x + newposx, 8), round(cur_y + newposy, 8))
+	moveTo(round(cur_x + newposx, 12), round(cur_y + newposy, 12))
 end
 
 --- Same as moveForward, but in the other direction
@@ -257,5 +257,5 @@ function moveBackward(_steps)
 	local newposx = math.cos(math.rad(cur_rotation-90)) * _steps
 	local newposy = math.sin(math.rad(cur_rotation-90)) * _steps
 
-	moveTo(round(cur_x - newposx, 8), round(cur_y - newposy, 8))
+	moveTo(round(cur_x - newposx, 12), round(cur_y - newposy, 12))
 end
