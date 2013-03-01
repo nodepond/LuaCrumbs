@@ -177,7 +177,7 @@ end
 -- If pencil is not down, it will go down.
 -- @param xpos X-Position of destination in absolute coordinates
 -- @param ypos Y-Position of destination in absolute coordinates
-function lineTo(xpos, ypos)
+function lineTo(_xpos, _ypos)
 	pencilDown()
 	moveTo(_xpos, _ypos)	
 end
