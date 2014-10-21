@@ -3,7 +3,7 @@
 -- http://luacrumbs.nodepond.com / http://www.luacrumbs.org
 --
 -- License: MIT/X
--- 
+--
 -- (c) 2012 Nodepond.com / Martin Wisniowski (hello@nodepond.com)
 --
 -- First version 18. November 2012
@@ -14,7 +14,7 @@ Svg = {}
 Svg.__index = Svg
 
 function Svg.new()
-   local svg = {}         
+   local svg = {}
    setmetatable(svg,Svg)
    return svg
 end
@@ -24,27 +24,27 @@ function Svg:init(_projectname)
 end
 
 function Svg:inspect()
-	print("Svg: nothing to inspect")
+	print("Svg: NOT IMPLEMENTED YET")
 end
 
 function Svg:moveTo(_x, _y, _z, _pre_x, _pre_y, _pre_z)
-	-- nothing to do
+	-- TODO
 end
 
 function Svg:setSpeed(_speed)
-	-- nothing to do
+	-- TODO
 end
 
 function Svg:pause(_seconds)
-	-- nothing to do
+	-- TODO
 end
 
 function Svg:pencilUp(_isPencilUpAlreadyUp, _x, _y, _cur_z, _dest_z)
-	-- nothing to do
+	-- TODO
 end
 
 function Svg:pencilDown(_isPencilUpAlreadyDown, _x, _y, _cur_z, _dest_z)
-	-- nothing to do
+	-- TODO
 end
 
 function Svg:close()
@@ -52,12 +52,12 @@ function Svg:close()
 	print("\nStarting to write Svg-file.")
 	local output_file = self.projectname..".svg"
 	file = io.open(output_file, "w+")
-	print("Opened file: "..output_file)	
-	
+	print("Opened file: "..output_file)
+
 	file:write(self:getHeader())
 	file:write(self:getBody())
 	file:write(self:getFooter())
-	
+
 	print("Writing of "..output_file.." complete.\n")
 end
 
